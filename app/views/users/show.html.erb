@@ -1,0 +1,19 @@
+<h1>プロフィール</h1>
+
+<h3>アイコン画像</h3>
+<% if @user.user_image.attached? %>
+  <%= image_tag @user.user_image %>
+<% else %>
+  <%= image_tag "no-image.jpeg" %>
+<% end %>
+
+<h3>ユーザー名</h3>
+<%= @user.username %>
+
+<h3>自己紹介</h3>
+<%= @user.profile %>
+
+<% if @user.id == current_user.id %>
+  <p><%= link_to "編集", edit_user_path(current_user) %></p>
+<% end %>
+<p><%= link_to "ユーザー一覧へ戻る", users_path %></p>

@@ -13,6 +13,18 @@
   <body>
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
+    
+    <% if user_signed_in? %>
+      <%= link_to "マイページ", user_path(current_user) %>
+      <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
+    <% else %>
+      <%= link_to "新規登録", new_user_registration_path %>
+      <%= link_to "ログイン", new_user_session_path %>
+    <% end %>
+
+    <%= link_to root_path do %>
+      <h1>世界でいちばんの動物たち</h1>
+    <% end %>
     <%= yield %>
   </body>
 </html>
