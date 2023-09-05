@@ -1,0 +1,19 @@
+<h1>詳細</h1>
+
+<h3>ペットの画像</h3>
+<% if @animal.animal_image.attached? %>
+  <%= image_tag @animal.animal_image %>
+<% else %>
+  <%= image_tag "no-image.jpeg" %>
+<% end %>
+
+<h3>ユーザー名</h3>
+<%= @animal.animalname %>
+
+<h3>自己紹介</h3>
+<%= @animal.body %>
+
+<% if @animal.user.id == current_user.id %>
+  <p><%= link_to "編集", edit_user_path(current_user) %></p>
+<% end %>
+<p><%= link_to "ペットのみんなへ戻る", animals_path %></p>

@@ -1,0 +1,14 @@
+<h1>ペットのみんな</h1>
+<div>
+  <% @animals.each do |animal| %>
+    <%= link_to animal_path(animal) do %>
+      <% if animal.animal_image.attached? %>
+        <%= image_tag animal.animal_image, :size => '300x200' %>
+      <% else %>
+        <%= image_tag "no-image.jpeg", :size => '300x200' %>
+      <% end %>
+      <%= animal.animalname %>
+    <% end %>
+    <%= animal.body %>
+  <% end %>
+</div>

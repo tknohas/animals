@@ -1,0 +1,14 @@
+<h3>新規登録</h3>
+ 
+<%= form_with model: @animal do |f| %>
+	<%= f.label :animalname, "ペットの名前" %>
+	<%= f.text_field :animalname %>
+
+	<%= f.label :body, "ペットの紹介" %>
+	<%= f.text_area :body %>
+
+	<%= f.label :animal_image, "ペットの写真" %>
+	<%= f.file_field :animal_image %>
+	
+  <%= f.submit "保存" %>
+<% end %>
