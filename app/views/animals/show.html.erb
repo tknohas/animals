@@ -7,10 +7,10 @@
   <%= image_tag "no-image.jpeg" %>
 <% end %>
 
-<h3>ユーザー名</h3>
+<h3>ペットのおなまえ</h3>
 <%= @animal.animalname %>
 
-<h3>自己紹介</h3>
+<h3>投稿文</h3>
 <%= @animal.body %>
 
 <% if @animal.user.id == current_user.id %>

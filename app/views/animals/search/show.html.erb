@@ -1,0 +1,21 @@
+<div>
+  <h4>検索結果：<%= @animals.count %>件</h4>
+  <div>
+    <% @animals.each do |animal| %>
+      <div>
+        <div>
+          <%= link_to animal_path(animal) do %>
+            <div>
+              <%= image_tag animal.animal_image.presence || 'no-image.jpeg', alt: "動物画像" %>
+            </div>
+
+            <div>
+              <p><%= animal.animalname %></p>
+              <p><%= animal.body %></p>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
