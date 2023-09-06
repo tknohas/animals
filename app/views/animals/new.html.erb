@@ -10,5 +10,10 @@
 	<%= f.label :animal_image, "ペットの写真" %>
 	<%= f.file_field :animal_image %>
 	
+  <div class="male_or_female-field">
+    <%= f.label :性別 %><br />
+    <%= f.select :male_or_female, Animal.enum_options_for_select(:male_or_female) %>
+</div>
   <%= f.submit "保存" %>
 <% end %>
+

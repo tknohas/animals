@@ -1,0 +1,8 @@
+ja:
+  activerecord:
+    models:
+      animal: 
+    attributes:
+      animal/male_or_female:           #モデル名を指定
+        male: オス     #Enumの名前定義①
+        female: メス   #Enumの名前定義②      
