@@ -5,5 +5,16 @@
     <%= text_field_tag "animal", "", { class: "form-control mb-4", placeholder: "動物の種類など" } %>
     <%= submit_tag "探す" ,{ class: "form-control btn-primary mb-4" } %>
   <% end %>
+  <% @categories.roots.each do |category| %>
+    <%= link_to animals_path do %>
+      <%= category.name %>
+    <% end %>
+      <% category.children.each do |children_category| %>
+        <%= children_category.name %>
+        <% children_category.children.each do |grandchildren_category| %>
+          <%= grandchildren_category.name %>
+        <% end %>
+      <% end %>
+  <% end %>
 </div>
       

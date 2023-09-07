@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_09_04_142503) do
+ActiveRecord::Schema.define(version: 2023_09_07_130212) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -40,12 +40,34 @@ ActiveRecord::Schema.define(version: 2023_09_04_142503) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "animal_tags", force: :cascade do |t|
+    t.integer "animal_id", null: false
+    t.integer "tag_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["animal_id"], name: "index_animal_tags_on_animal_id"
+    t.index ["tag_id"], name: "index_animal_tags_on_tag_id"
+  end
+
   create_table "animals", force: :cascade do |t|
     t.integer "user_id"
     t.string "animalname"
     t.text "body"
     t.string "animal_image_id"
     t.integer "male_or_female"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "genres", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "ancestry"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -67,4 +89,6 @@ ActiveRecord::Schema.define(version: 2023_09_04_142503) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "animal_tags", "animals"
+  add_foreign_key "animal_tags", "tags"
 end
