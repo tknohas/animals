@@ -27,3 +27,12 @@ end
   small_animal.children.create(name: name)
 end
 
+
+Tag
+Tag.create([
+    { name: 'ワンちゃん' },
+    { name: 'ネコちゃん' },
+    { name: '小動物'},
+    { name: '観賞魚'},
+    { name: '爬虫類・ほか'},
+    ])

@@ -16,7 +16,16 @@
 <h3>性別</h3>
 <%= @animal.human_attribute_enum(:male_or_female) %>
 
+<h3>名称</h3>
+<%= @animal.category %>
+
+<h3>カテゴリー</h3>
+<% @animal.tags.each do |tag| %>
+  <%= tag.name %>
+<% end %>
+
 <% if @animal.user.id == current_user.id %>
   <p><%= link_to "編集", edit_user_path(current_user) %></p>
 <% end %>
 <p><%= link_to "ペットのみんなへ戻る", animals_path %></p>
+

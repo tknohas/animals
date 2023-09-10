@@ -1,3 +1,14 @@
+<div class="section has-background-info-light">
+    <div class="columns">
+        <%= form_with url: search_tags_path, method: :get do |f| %>
+            <div class="column is-7">   
+                <%= f.text_field :name, class: "input is-dark", placeholder: "エリア名" %>
+            </div>
+            <%= f.submit"探す", class: "button is-warning" %>
+        <% end %>
+    </div>
+ </div>
+
 <div>
   <h4>検索結果：<%= @animals.count %>件</h4>
   <div>

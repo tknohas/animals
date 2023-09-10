@@ -1,0 +1,30 @@
+<%= form_with model: @animal do |f| %>
+	<%= f.label :animalname, "ペットの名前" %>
+	<%= f.text_field :animalname %>
+
+	<%= f.label :body, "ペットの紹介" %>
+	<%= f.text_area :body %>
+
+	<%= f.label :animal_image, "ペットの写真" %>
+	<%= f.file_field :animal_image %>
+	
+  <div class="male_or_female-field">
+    <%= f.label :性別 %><br />
+    <%= f.select :male_or_female, Animal.enum_options_for_select(:male_or_female) %>
+  </div>
+
+  <%= f.label :category, "ペットの名称" %>
+	<%= f.text_field :category %>
+
+  <div class="check_box">
+  <%= f.collection_check_boxes(:tag_ids, Tag.all, :id, :name) do |tag| %>
+    <div class='form-check'>
+      <%= tag.label do %>
+        <%= tag.check_box %>
+        <%= tag.text %>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+  <%= f.submit "保存" %>
+<% end %>

@@ -15,8 +15,23 @@
     <%= f.select :male_or_female, Animal.enum_options_for_select(:male_or_female) %>
   </div>
 
+  <%= f.label :category, "ペットの名称" %>
+	<%= f.text_field :category %>
+
+  <%= f.label :genre_id, 'カテゴリー' %>
+      <br>
+      <%= f.collection_select :category_id, Genre.all, :id, :name, { prompt: '選択してください' }, class: 'form-control' %>
+      <br>
+
+  <div class="field">
+     <%= f.label :genres %><br>
+    <%= collection_check_boxes(:post, :genre_ids, Genre.all, :id, :name ) do |t|  %>
+      <% t.label { t.check_box + t.text } %>
+    <% end %> 
+  </div>
+
   <div class="check_box">
-    <%= form.collection_check_boxes(:tag_ids, Tag.all, :id, :name) do |tag| %>
+    <%= f.collection_check_boxes(:tag_ids, Tag.all, :id, :name) do |tag| %>
       <div class='form-check'>
         <%= tag.label do %>
           <%= tag.check_box %>
@@ -25,6 +40,7 @@
       </div>
     <% end %>
   </div>
+
   <%= f.submit "保存" %>
 <% end %>
 

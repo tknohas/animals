@@ -45,6 +45,7 @@ group :development do
   gem 'spring'
   gem 'devise'
   gem 'ancestry'
+  gem 'pry-rails'
 end
 
 group :test do

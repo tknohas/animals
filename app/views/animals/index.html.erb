@@ -1,14 +1,35 @@
 <h1>ペットのみんな</h1>
 <div>
   <% @animals.each do |animal| %>
-    <%= link_to animal_path(animal) do %>
-      <% if animal.animal_image.attached? %>
-        <%= image_tag animal.animal_image, :size => '300x200' %>
-      <% else %>
-        <%= image_tag "no-image.jpeg", :size => '300x200' %>
+    <tr>
+      <%= link_to animal_path(animal) do %>
+        <td>
+        <% if animal.animal_image.attached? %>
+          <%= image_tag animal.animal_image, :size => '300x200' %>
+        <% else %>
+          <%= image_tag "no-image.jpeg", :size => '300x200' %>
+        <% end %>
+        </td>
+        <td>
+        <%= animal.animalname %>
+        </td>
       <% end %>
-      <%= animal.animalname %>
-    <% end %>
-    <%= animal.body %>
+      <td>
+      <%= animal.body %>
+      </td>
+    </tr>
   <% end %>
 </div>
+
+<%= form_tag animals_path, method: :get, class: 'boards__searchForm' do %>
+
+  <% @tags.each do |tag| %>
+      <div class="tag-box">
+        <%= link_to tag.name, animals_path(name: tag.id) %>
+      </div>
+  <% end %>
+      <div class="tag-box">
+        <%= link_to "ペットのみんな", animals_path %>
+      </div>
+<% end %>
+

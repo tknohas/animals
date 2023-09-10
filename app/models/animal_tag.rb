@@ -1,4 +1,4 @@
 class AnimalTag < ApplicationRecord
-  # belongs_to :tag
-  # belongs_to :animal
+  belongs_to :animal
+  belongs_to :tag
 end
