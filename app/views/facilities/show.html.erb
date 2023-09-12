@@ -1,0 +1,58 @@
+<h1>おすすめ施設の詳細</h1>
+<table>
+  <tr>
+   <th>施設名</th>
+   <td><%= @facility.facility_name %>
+  </tr>
+
+  <tr>
+   <th>施設紹介</th>
+   <td><%= @facility.introduction %>
+  </tr>
+</table>
+
+<div id="map"></div>
+
+<div>
+  <script>
+    let map;
+
+    function initMap() {
+      // geocoderを初期化
+      geocoder = new google.maps.Geocoder()
+
+      map = new google.maps.Map(document.getElementById('map'), {
+        // コントローラーで定義した変数から緯度経度を呼び出し、マップの中心に表示
+        center: {
+          lat: gon.facility.latitude,
+          lng: gon.facility.longitude
+        },
+        // マップの倍率はお好みで
+        zoom: 17,
+      });
+
+      marker = new google.maps.Marker({
+        // コントローラーで定義した変数から緯度経度を呼び出し、マーカーを立てる
+        position: {
+          lat: gon.facility.latitude,
+          lng: gon.facility.longitude
+        },
+        map: map
+      });
+    }
+  </script>
+
+  <script async defer
+        src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=<%= ENV['GOOGLE_API_KEY'] %>&callback=initMap">
+  </script>
+  <style type="text/css">
+    #map { height: 300px;
+          width: auto;}
+  </style>
+</div>
+
+<% if @facility.user_id == current_user.id %>
+  <%= link_to @facility, method: :delete, data: {confirm: "削除しますか？"} do %>
+    <p>この施設を削除する</p>
+  <% end %>
+<% end %>

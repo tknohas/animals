@@ -1,3 +1,8 @@
+<h1>
+  <% @animals.each do |animal| %>
+    <%= animal.category %>
+<% end %>
+</h1>
 <div>
   <h4>検索結果：<%= @animals.count %>件</h4>
   <div>
@@ -6,7 +11,7 @@
         <div>
           <%= link_to animal_path(animal) do %>
             <div>
-              <%= image_tag animal.animal_image.presence || 'no-image.jpeg', alt: "動物画像" %>
+              <%= image_tag animal.animal_image.presence || 'no-image.jpeg', alt: "動物画像", :size => '300x200' %>
             </div>
 
             <div>

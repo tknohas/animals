@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'facilities/index'
+  get 'facilities/new'
+  get 'facilities/show'
+  get 'facilities/edit'
   get 'tags/search'
   get 'genres/index'
   get 'genres/edit'
@@ -16,4 +20,5 @@ Rails.application.routes.draw do
   get 'get_genre/grandchildren', to: 'animals#get_category_grandchildren', defaults: { format: 'json' }
   resources :genres, except: [:new, :show]
   post 'animals/:id' => 'animals#show'
+  resources :facilities
 end

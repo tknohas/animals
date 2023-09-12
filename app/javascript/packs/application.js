@@ -11,3 +11,10 @@ import "channels"
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
+
+import "bootstrap";
+import "../stylesheets/application.scss";
+
+//= require underscore
+//= require gmaps/google
+

@@ -55,7 +55,4 @@ class AnimalsController < ApplicationController
   def animal_params
     params.require(:animal).permit(:animalname, :body, :animal_image, :male_or_female, { tag_ids: [] }, :category)
   end
-  def genre_params
-    params.require(:genre).permit(genre_ids: [])
-  end
 end

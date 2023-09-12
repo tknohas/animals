@@ -1,0 +1,21 @@
+<h1>Facilities#new</h1>
+<p>Find me in app/views/facilities/new.html.erb</p>
+
+<%= form_with(model: @facility) do |f| %>
+  <div class="field my-3">
+    <%= f.label :facility_name %>
+    <%= f.text_field :facility_name %>
+  </div>
+  <div class="field my-3">
+    <%= f.label :introduction %>
+    <%= f.text_area :introduction %>
+  </div>
+  <div class="field my-3">
+    <%= f.label :address %>
+    <%= f.text_field :address %>
+  </div>
+  <div class="actions">
+  <%= f.hidden_field :user_id, value: current_user.id %>
+    <%= f.submit %>
+  </div>
+ <% end %>
