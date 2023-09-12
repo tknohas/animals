@@ -1,0 +1,39 @@
+<%= form_with model: animal do |f| %>
+  <div class="form-group">
+    <%= f.label :animalname, "ペットのおなまえ" %>
+    <%= f.text_field :animalname, class:"form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :body, "投稿内容" %>
+    <%= f.text_area :body, class:"form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :animal_image, "写真" %>
+    <%= f.file_field :animal_image, class:"form-control" %>
+  </div>
+    
+  <div class="form-group">
+    <%= f.label :性別 %><br />
+    <%= f.select :male_or_female, Animal.enum_options_for_select(:male_or_female), class:"form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :category, "ペットの名称" %>
+    <%= f.text_field :category, class:"form-control", placeholder: "柴犬、マンチカン、ニシキヘビなど" %>
+  </div>
+
+  <div class="check_box">
+    <%= f.label :tag_id, 'カテゴリー' %>
+    <%= f.collection_check_boxes(:tag_ids, Tag.all, :id, :name) do |tag| %>
+      <div class='form-check'>
+        <%= tag.label do %>
+          <%= tag.check_box %>
+          <%= tag.text %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+  <%= f.submit "保存" %>
+<% end %>

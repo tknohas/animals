@@ -15,10 +15,8 @@ Rails.application.routes.draw do
   namespace :tags do
     resource :search, only: :show, controller: :search
   end
-  resources :animals
-  get 'get_genre/children', to: 'animals#get_category_children', defaults: { format: 'json' }
-  get 'get_genre/grandchildren', to: 'animals#get_category_grandchildren', defaults: { format: 'json' }
-  resources :genres, except: [:new, :show]
-  post 'animals/:id' => 'animals#show'
+  resources :animals do
+    resource :favorites, only: [:create, :destroy]
+  end
   resources :facilities
 end

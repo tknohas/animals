@@ -41,8 +41,8 @@ class FacilitiesController < ApplicationController
   end
 
   def destroy
-    @facility = Facility.find(params[:id])
-    @facility.destroy
+    facility = Facility.find(params[:id])
+    facility.destroy
     redirect_to facilities_url, notice: 'Facility was successfully destroyed.'
   end
 

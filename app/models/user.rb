@@ -3,4 +3,9 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   has_one_attached :user_image
   has_many :animals, dependent: :destroy
+  has_many :favorites, dependent: :destroy
+
+  def already_favorited?(animal)
+    self.favorites.exists?(animal_id: animal.id)
+  end
 end

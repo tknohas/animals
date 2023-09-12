@@ -21,6 +21,14 @@
       <td>
       <%= animal.body %>
       </td>
+      <td>
+        <% if current_user.already_favorited?(animal) %>
+          <%= link_to "いいねを外す", animal_favorites_path(animal), method: :delete %>
+        <% else %>
+          <%= link_to "いいね", animal_favorites_path(animal), method: :post %>
+        <% end %>
+        <%= animal.favorites.count %>
+      </td>
     </tr>
   <% end %>
 </div>

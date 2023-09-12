@@ -43,14 +43,13 @@ class AnimalsController < ApplicationController
     @animal.update(animal_params)
     redirect_to animals_path
   end
-  # def get_genre_children
-  #   @genre_children = Genre.find(params[:parent_id]).children
-  # end
-
-  # def get_genre_grandchildren
-  #   @genre_grandchildren = Genre.find(params[:children_id]).children
-  # end
   
+  def destroy
+    animal = Animal.find(params[:id])
+    animal.destroy
+    redirect_to animals_url, notice: 'Animal was successfully destroyed.'
+  end
+
   private
   def animal_params
     params.require(:animal).permit(:animalname, :body, :animal_image, :male_or_female, { tag_ids: [] }, :category)

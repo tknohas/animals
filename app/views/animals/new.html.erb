@@ -1,47 +1,10 @@
-<h3>新規登録</h3>
- 
-<%= form_with model: @animal do |f| %>
-	<%= f.label :animalname, "ペットの名前" %>
-	<%= f.text_field :animalname %>
-
-	<%= f.label :body, "ペットの紹介" %>
-	<%= f.text_area :body %>
-
-	<%= f.label :animal_image, "ペットの写真" %>
-	<%= f.file_field :animal_image %>
-	
-  <div class="male_or_female-field">
-    <%= f.label :性別 %><br />
-    <%= f.select :male_or_female, Animal.enum_options_for_select(:male_or_female) %>
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-6 mx-auto">
+      <h2>新規登録</h2>
+        <%= render 'form', animal: @animal %>
+    </div>
   </div>
-
-  <%= f.label :category, "ペットの名称" %>
-	<%= f.text_field :category %>
-
-  <%= f.label :genre_id, 'カテゴリー' %>
-      <br>
-      <%= f.collection_select :category_id, Genre.all, :id, :name, { prompt: '選択してください' }, class: 'form-control' %>
-      <br>
-
-  <div class="field">
-     <%= f.label :genres %><br>
-    <%= collection_check_boxes(:post, :genre_ids, Genre.all, :id, :name ) do |t|  %>
-      <% t.label { t.check_box + t.text } %>
-    <% end %> 
-  </div>
-
-  <div class="check_box">
-    <%= f.collection_check_boxes(:tag_ids, Tag.all, :id, :name) do |tag| %>
-      <div class='form-check'>
-        <%= tag.label do %>
-          <%= tag.check_box %>
-          <%= tag.text %>
-        <% end %>
-      </div>
-    <% end %>
-  </div>
-
-  <%= f.submit "保存" %>
-<% end %>
+</div>
 
 

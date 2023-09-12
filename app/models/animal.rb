@@ -4,6 +4,7 @@ class Animal < ApplicationRecord
   #has_many :genres
   has_many :animal_tags, dependent: :destroy
   has_many :tags, through: :animal_tags
+  has_many :favorites, dependent: :destroy
   # has_many :animal_genres
   # has_many :genres, through: :animal_genres
 
