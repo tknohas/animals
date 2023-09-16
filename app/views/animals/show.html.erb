@@ -1,127 +1,33 @@
-<div class="col-md-10 col-md-offset-1 mx-auto postShow-wrap">
-  <div class="row post-wrap">
-    <div class="col-md-8">
-      <div class="card-left">
-        <% if @animal.animal_image.attached? %>
-          <%= image_tag @animal.animal_image, class: "card-img-top"  %>
-        <% else %>
-          <%= image_tag "no-image.jpeg" %>
-        <% end %>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="card-right">
-        <div class="card-right-comment">
-          <div class="card-right-name">
-            <%= link_to user_path(@animal.user), class: "black-color no-text-decoration post-user-name",
-              title: @animal.user.username do %>
-              <strong><%= @animal.user.username %></strong>
-            <% end %>
-          </div>
-          <table>
-            <div class="m-2">
-              <tr>
-                <th>ペットのおなまえ：</th>
-                <td><%= @animal.animalname %></td>
-              </tr>
-            </div>
-            <div class="m-2">
-              <strong>
-                <%= @animal.body %>
-              </strong>
-            </div>
-            <div class="m-2">
-              <tr>
-                <th>性別：</th>
-                <td><%= @animal.human_attribute_enum(:male_or_female) %></td>
-              </tr>
-            </div>
-            <div class="m-2">
-              <tr>
-                <th>ペットの名称：</th>
-                <td><%= @animal.category %></td>
-              </tr>
-            </div>
-            <div class="m-2">
-              <tr>
-                <th>カテゴリー：</th>
-                <td>
-                  <% @animal.tags.each do |tag| %>
-                    <%= tag.name %>
-                  <% end %>
-                </td>
-              </tr>
-            </div>
-          </table>
-          <div class="post-time"><%= time_ago_in_words(@animal.created_at).upcase %>前</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<% if @animal.user == current_user %>
-  <%= link_to "編集", edit_animal_path(@animal), class: "btn btn-success" %>
-  <%= link_to @animal, method: :delete, data: {confirm: "削除しますか？"} do %>
-    <p>この投稿を削除する</p>
+<h2>
+  おなまえ：<%= @animal.animalname %>
+  <% if @animal.human_attribute_enum(:male_or_female) == "オス" %>
+    くん
+  <% else %>
+    ちゃん
   <% end %>
-<% end %>
+</h2>
 
-
-<div class="container mt-5">
-  <div class="row">
-    <div class="col-6 mx-auto">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title"><%= @animal.animalname %></h5>
-          <svg class="bd-placeholder-img card-img-top" width="100%" height="180" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Image cap"><title>Placeholder</title><rect width="100%" height="100%" fill="#868e96"/><text x="50%" y="50%" fill="#dee2e6" dy=".3em">
-            <% if @animal.animal_image.attached? %>
-              <%= image_tag @animal.animal_image %>
-            <% else %>
-              <%= image_tag "no-image.jpeg" %>
-            <% end %>
-          </text></svg>
-          <p class="card-text"><%= simple_format @animal.body %></p>
-          <p class="card-text">
-            <small class="text-muted">更新日：<%= @animal.updated_at.strftime("%Y-%m-%d") %></small>
-          </p>
-          <% if @animal.user == current_user %>
-            <%= link_to "編集", edit_animal_path(@animal), class: "btn btn-success" %>
-          <% end %>
-        </div>
-      </div>
-    </div>
+<div class="card" style="width: 50rem;">
+    <% if @animal.animal_images.attached? %>
+    <% @animal.animal_images.each do |image| %>
+      <%= image_tag image %>
+    <% end %>
+    <% else %>
+    <%= image_tag "no-image.jpeg" %>
+    <% end %>
+  <div class="card-body">
+    <h5 class="card-title">
+      <%= @animal.human_attribute_enum(:male_or_female) %>
+    </h5>
+    <p class="card-text"><%= @animal.body %></p>
+    <% if current_user.already_favorited?(@animal) %>
+      <%= link_to "いいねを外す", animal_favorites_path(@animal), method: :delete %>
+    <% else %>
+      <%= link_to "いいね", animal_favorites_path(@animal), method: :post %>
+    <% end %>
+    <% if @animal.user.id == current_user.id %>
+      <p><%= link_to "編集", edit_animal_path, class:"btn btn-success" %></p>
+    <% end %>
+    <p><%= link_to '戻る', :back, class:"btn btn-warning" %>
   </div>
 </div>
-
-<h1>詳細</h1>
-
-<h3>ペットの画像</h3>
-<% if @animal.animal_image.attached? %>
-  <%= image_tag @animal.animal_image %>
-<% else %>
-  <%= image_tag "no-image.jpeg" %>
-<% end %>
-
-<h3>ペットのおなまえ</h3>
-<%= @animal.animalname %>
-
-<h3>投稿文</h3>
-<%= @animal.body %>
-
-<h3>性別</h3>
-<%= @animal.human_attribute_enum(:male_or_female) %>
-
-<h3>名称</h3>
-<%= @animal.category %>
-
-<h3>カテゴリー</h3>
-<% @animal.tags.each do |tag| %>
-  <%= tag.name %>
-<% end %>
-
-<% if @animal.user.id == current_user.id %>
-  <p><%= link_to "編集", edit_animal_path %></p>
-<% end %>
-<p><%= link_to "ペットのみんなへ戻る", animals_path %></p>
-

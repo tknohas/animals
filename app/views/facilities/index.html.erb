@@ -1,22 +1,29 @@
 <h1>おすすめの施設一覧</h1>
-<table class="table">
-	<thead>
-		<tr>
-			<th scope="col">施設名</th>
-			<th scope="col">紹介文</th>
-      <th scope="col">住所</th>
-			<th scope="col">作成日</th>
-		</tr>
-	</thead>
-	<tbody>
-		<% @facilities.each do |facility| %>  
-      <tr class="mr-3">
-        <td><%= link_to facility.facility_name, facility_path(facility) %></td>
-        <td><%= facility.introduction %></td>
-        <td><%= facility.address %></td>
-        <td><%= facility.created_at.strftime("%Y/%m/%d") %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-10 mx-auto">
+      <table class="table table-hover">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">施設名</th>
+            <th scope="col">紹介文</th>
+            <th scope="col">住所</th>
+            <th scope="col">作成日</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @facilities.each do |facility| %>  
+            <tr class="mr-3">
+              <td><%= link_to facility.facility_name, facility_path(facility) %></td>
+              <td><%= facility.introduction %></td>
+              <td><%= facility.address %></td>
+              <td><%= facility.created_at.strftime("%Y/%m/%d") %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
 

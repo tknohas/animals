@@ -1,21 +1,28 @@
-<h1>編集</h1>
-<%= form_with model: @user do |f| %>
-	<table>
-		<tr>
-			<th><%= f.label :user_image ,"アイコン画像" %></th>
-			<td><%= f.file_field :user_image %></td>
-		</tr>
-		<tr>
-			<th><%= f.label :username ,"名前" %></th>
-			<td><%= f.text_field :username %></td>
-		</tr>
-    <tr>
-			<th><%= f.label :profile ,"自己紹介" %></th>
-			<td><%= f.text_area :profile %></td>
-		</tr>
-	</table>
-	<div>
-    <p><%= f.submit "編集を完了する" %></p>
-    <p><%= link_to "ユーザー一覧へ戻る", users_path %></p>
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-6 mx-auto">
+      <h1>編集</h1>
+      <%= form_with model: @user do |f| %>
+        <div class="form-group">
+          <%= f.label :user_image ,"アイコン画像" %>
+          <%= f.file_field :user_image, class:"form-control" %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :username ,"名前" %>
+          <%= f.text_field :username, class:"form-control" %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :profile ,"自己紹介" %>
+          <%= f.text_area :profile, class:"form-control" %>
+        </div>
+          
+        <div class="text-center">
+          <p><br><%= f.submit "編集を完了する", class:"btn btn-primary" %></p>
+          <p><%= link_to "マイページへ戻る", user_path(@user) %></p>
+        </div>
+      <% end %>
+    </div>
   </div>
-<% end %>
+</div>

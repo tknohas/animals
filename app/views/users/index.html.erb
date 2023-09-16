@@ -1,13 +1,19 @@
 <h1>ユーザー一覧</h1>
-<div>
-  <% @users.each do |user| %>
-    <%= link_to user_path(user) do %>
-      <% if user.user_image.attached? %>
-        <%= image_tag user.user_image %>
-      <% else %>
-        <%= image_tag "no-image.jpeg" %>
-      <% end %>
-      <%= user.username %>
+<div class="container">
+  <div class="row">
+    <% @users.each do |user| %>
+      <div class="col-md-3">
+        <div class="card">
+          <%= link_to user_path(user.id) do %>
+            <div class="card-top text-center">
+              <%= image_tag (user.user_image.presence || 'no-image.jpeg'), style: "border-radius: 50%;", :size => '150x150'  %>
+            </div>
+            <div class="card-body text-center">
+              <h4 class="card-title"><%= user.username %></h4>
+            </div>
+          <% end %>
+        </div>
+      </div>
     <% end %>
-  <% end %>
+  </div>
 </div>

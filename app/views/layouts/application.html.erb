@@ -12,6 +12,49 @@
    </head>
 
   <body>
+  <nav class="navbar navbar-expand-lg navbar-white bg-info">
+    <a class="navbar-brand" href="#" style="font-family: cursive;">P-1グランプリ</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <% if user_signed_in? %>
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <%= link_to "HOME", root_path, class:"nav-link" %>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item dropdown">
+            <div class="dropdown">
+              <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                ページ遷移
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li><%= link_to "投稿フォーム", new_animal_path, class:"dropdown-item" %></li>
+                <li><%= link_to "みんなのペット一覧", animals_path, class:"dropdown-item" %></li>
+                <li><%= link_to "みんなのおすすめ施設", facilities_path, class:"dropdown-item" %></li>
+                <li><%= link_to "設定", users_path, class:"dropdown-item" %></li>
+                <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete, class:"dropdown-item" %></li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" href="#">Disabled</a>
+          </li>
+        </ul>
+      <% else %>
+        <div class="header__nav-item">
+          <%= link_to "ログイン", new_user_session_path, class: 'btn btn-primary my-2 mx-3' %>
+          <%= link_to "登録する", new_user_registration_path, class: 'btn btn-secondary' %>
+        </div>
+      <% end %>
+    </div>
+  </nav>
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
     

@@ -11,16 +11,8 @@ class FacilitiesController < ApplicationController
     @facility = Facility.new(facility_params)
     @facility.user_id = current_user.id
     if @facility.save
-       # AnimalGenre.maltilevel_genre_create(
-      #   @animal,
-      #   params[:parent_id],
-      #   params[:children_id],
-      #   params[:grandchildren_id]
-      # )
       redirect_to facilities_path
     else 
-      # @animals = Animal.all
-      # @genre_parent_array = Genre.genre_parent_array_create
       render "new"
     end
   end
@@ -48,6 +40,6 @@ class FacilitiesController < ApplicationController
 
   private
   def facility_params
-    params.require(:facility).permit(:address, :latitude, :longitude, :facility_name, :introduction)
+    params.require(:facility).permit(:address, :latitude, :longitude, :facility_name, :introduction, :link_to_site)
   end
 end

@@ -3,30 +3,5 @@
     <%= animal.category %>
 <% end %>
 </h1>
-<div>
-  <h4>検索結果：<%= @animals.count %>件</h4>
-  <div>
-    <% @animals.each do |animal| %>
-      <div>
-        <div>
-          <%= link_to animal_path(animal) do %>
-            <div>
-              <%= image_tag animal.animal_image.presence || 'no-image.jpeg', alt: "動物画像", :size => '300x200' %>
-            </div>
-
-            <div>
-              <p><%= animal.animalname %></p>
-              <p><%= animal.body %></p>
-            </div>
-
-            <div>
-              <% animal.tags.each do |tag| %>
-                <%= tag.name %>
-              <% end %>
-            </div>
-          <% end %>
-        </div>
-      </div>
-    <% end %>
-  </div>
-</div>
+<h4>検索結果：<%= @animals.count %>件</h4>
+<%= render 'animals/animal_each' %>

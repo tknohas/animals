@@ -1,6 +1,6 @@
 class Animal < ApplicationRecord
   belongs_to :user
-  has_one_attached :animal_image
+  has_many_attached :animal_images
   #has_many :genres
   has_many :animal_tags, dependent: :destroy
   has_many :tags, through: :animal_tags
