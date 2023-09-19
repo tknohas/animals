@@ -1,6 +1,5 @@
-<div class="top">
-  <h1>みなさんのペットを気兼ねなく自慢してください！</h1>
-  <div class="top-main">
+<div class="home">
+  <div class="home-main">
     <div class="container">
       <div class="row col-lg-6">
         <div class="form-area mt-4">
@@ -13,6 +12,7 @@
       </div>
     </div>
   </div>
+  
 
   <div class="container">
     <div class="panel-area m-5">
@@ -23,8 +23,14 @@
             <%= link_to tag.name, animals_path(name: tag.id) %>
           </div>
         <% end %>
-          <div class="shadow"></div>
       </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="mt-5">
+      <h2>新着投稿</h2>
+      <%= render 'animals/animal_each' %>
     </div>
   </div>
 </div>

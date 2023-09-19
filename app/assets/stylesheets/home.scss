@@ -1,10 +1,6 @@
-.topnewbox{
-  display: inline-block;
-  margin: 5px;
-  padding: 10px;
-  background-color: #ffffff;
-}
-
-.hoge{
-  display: inline-block;
+.dog {
+  background-color: blue;
+  background-size: cover;                 /* 繰り返し表示を防ぐ */
+  width: 300px;
+  height: 500px;
 }

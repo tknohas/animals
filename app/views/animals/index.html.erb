@@ -1,4 +1,4 @@
-<h1>ペットのみんな</h1>
+<h1 class="text-center mt-4">ペットのみんな</h1>
 
 <div class="container mt-5">
   <div class="row">
@@ -9,7 +9,7 @@
           <div class="card-top text-center">
             <%= link_to animal_path(animal) do %>
               <% if animal.animal_images.attached? %>
-                <%= image_tag animal.animal_images.first, :size => '400x300' %>
+                <%= image_tag animal.animal_images.first, :size => '400x280' %>
               <% else %>
                 <%= image_tag "no-image.jpeg", :size => '300x200' %>
               <% end %>
@@ -18,10 +18,12 @@
           <div class="card-body text-center">
             <h4 class="card-title"><%= link_to animal.animalname, animal_path(animal), class:"text-decoration-none" %></h4>
             <p class="card-text"><%= animal.body %></p>
-            <% if current_user.already_favorited?(animal) %>
-              <%= link_to "いいねを外す", animal_favorites_path(animal), method: :delete %>
-            <% else %>
-              <%= link_to "いいね", animal_favorites_path(animal), method: :post %>
+            <% if user_signed_in? %>
+              <% if current_user.already_favorited?(animal) %>
+                <%= link_to "いいねを外す", animal_favorites_path(animal), method: :delete %>
+              <% else %>
+                <%= link_to "いいね", animal_favorites_path(animal), method: :post %>
+              <% end %>
             <% end %>
           </div>
           <% if animal.user == current_user %>

@@ -1,4 +1,5 @@
 class AnimalsController < ApplicationController
+  before_action :authenticate_user!, except: [:index]
   def index
     #@animals = Animal.all
     @animals = params[:name].present? ? Tag.find(params[:name]).animals : Animal.all
@@ -14,16 +15,8 @@ class AnimalsController < ApplicationController
     @animal = Animal.new(animal_params)
     @animal.user_id = current_user.id
     if @animal.save
-       # AnimalGenre.maltilevel_genre_create(
-      #   @animal,
-      #   params[:parent_id],
-      #   params[:children_id],
-      #   params[:grandchildren_id]
-      # )
-      redirect_to animals_path
+      redirect_to animals_path, notice: '投稿に成功しました。'
     else 
-      # @animals = Animal.all
-      # @genre_parent_array = Genre.genre_parent_array_create
       render "new"
     end
   end
@@ -36,12 +29,18 @@ class AnimalsController < ApplicationController
 
   def edit
     @animal = Animal.find(params[:id])
+    if @animal.user != current_user
+      redirect_to animals_path, alert: '不正なアクセスです。'
+    end
   end
 
   def update
     @animal = Animal.find(params[:id])
-    @animal.update(animal_params)
-    redirect_to animals_path
+    if @animal.update(animal_params)
+      redirect_to animals_path, notice: '更新に成功しました。'
+    else
+      render 'edit'
+    end
   end
   
   def destroy

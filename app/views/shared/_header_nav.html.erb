@@ -1,0 +1,42 @@
+<nav class="navbar navbar-expand-lg navbar-white" style="background-color:#d2b48c;">
+    <%= link_to "P-1グランプリ", root_path, class:"navbar-brand" %>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <% if user_signed_in? %>
+        <ul class="navbar-nav w-100 nav-justified">
+          <li class="nav-item active">
+            <%= link_to "ペットの投稿", new_animal_path, class:"nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "施設の投稿", new_facility_path, class:"nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "みなさんのペット一覧", animals_path, class:"nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "みなさんのおすすめ施設", facilities_path, class:"nav-link" %>
+          </li>
+          <li class="nav-item dropdown">
+            <div class="dropdown">
+              <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                <%= current_user.username %>
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li><%= link_to "アカウント設定", edit_user_registration_path, class:"dropdown-item" %></li>
+                <li><%= link_to "プロフィール設定", edit_user_path(current_user), class:"dropdown-item" %></li>
+                <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete, class:"dropdown-item" %></li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      <% else %>
+        <div class="header__nav-item">
+          <%= link_to "ログイン", new_user_session_path, class: 'btn btn-primary my-2 mx-3' %>
+          <%= link_to "登録する", new_user_registration_path, class: 'btn btn-secondary' %>
+        </div>
+      <% end %>
+    </div>
+  </nav>

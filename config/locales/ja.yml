@@ -1,8 +1,21 @@
 ja:
   activerecord:
     models:
-      animal: 
+      animal:
+      user:
+      facility:
     attributes:
       animal/male_or_female:           #モデル名を指定
         male: オス     #Enumの名前定義①
-        female: メス   #Enumの名前定義②      
+        female: メス   #Enumの名前定義②
+      animal:
+        animalname: ペットのおなまえ
+        body: 投稿内容
+        animal_images: 画像
+        category: ペットの正式名称
+      user:
+        username: 名前 
+      facility:
+        facility_name: 施設名
+        introduction: 施設紹介文
+        address: 住所

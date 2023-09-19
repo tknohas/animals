@@ -1,4 +1,5 @@
 class FacilitiesController < ApplicationController
+  before_action :authenticate_user!
   def index
     @facilities = Facility.all
   end
@@ -11,7 +12,7 @@ class FacilitiesController < ApplicationController
     @facility = Facility.new(facility_params)
     @facility.user_id = current_user.id
     if @facility.save
-      redirect_to facilities_path
+      redirect_to facilities_path, notice: '施設の登録に成功しました。'
     else 
       render "new"
     end
@@ -24,12 +25,18 @@ class FacilitiesController < ApplicationController
 
   def edit
     @facility = Facility.find(params[:id])
+    if @facility.user_id != current_user.id
+      redirect_to facilities_path, alert: '不正なアクセスです。'
+    end
   end
 
   def update
     @facility = Facility.find(params[:id])
-    @facility.update(facility_params)
-    redirect_to facilities_path
+    if @facility.update(facility_params)
+      redirect_to facilities_path, notice: '施設の更新に成功しました。'
+    else
+      render 'edit'
+    end
   end
 
   def destroy

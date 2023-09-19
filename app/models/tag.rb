@@ -5,4 +5,6 @@ class Tag < ApplicationRecord
   def self.search(params)
     params[:keyword].present? ? where("name like ?", "#{params[:keyword]}%") : Animal.all
   end
+
+  validates :name, presence: true
 end

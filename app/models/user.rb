@@ -8,4 +8,6 @@ class User < ApplicationRecord
   def already_favorited?(animal)
     self.favorites.exists?(animal_id: animal.id)
   end
+
+  validates :username, presence: true
 end
