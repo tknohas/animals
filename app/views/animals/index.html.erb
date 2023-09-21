@@ -1,4 +1,4 @@
-<h1 class="text-center mt-4">ペットのみんな</h1>
+<h1 class="text-center mt-4">ペットのみんな<i class="fa-solid fa-paw"></i></h1>
 
 <div class="container mt-5">
   <div class="row">
@@ -20,9 +20,13 @@
             <p class="card-text"><%= animal.body %></p>
             <% if user_signed_in? %>
               <% if current_user.already_favorited?(animal) %>
-                <%= link_to "いいねを外す", animal_favorites_path(animal), method: :delete %>
+                <%= link_to animal_favorites_path(animal), method: :delete do %>
+                  <i class="fa-solid fa-star"></i>
+                <% end %>
               <% else %>
-                <%= link_to "いいね", animal_favorites_path(animal), method: :post %>
+                <%= link_to animal_favorites_path(animal), method: :post do %>
+                  <i class="fa-regular fa-star"></i>
+                <% end %>
               <% end %>
             <% end %>
           </div>
