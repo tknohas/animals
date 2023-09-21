@@ -18,4 +18,6 @@ class Animal < ApplicationRecord
     validates :animal_images
     validates :category
   end
+  validates :body, length: { maximum: 140 }
+  validates :animalname, length: { maximum: 20 }
 end
