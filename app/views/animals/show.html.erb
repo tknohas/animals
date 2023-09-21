@@ -1,14 +1,23 @@
-<h2>
+<h2 class="mt-4">
   おなまえ：<%= @animal.animalname %>
   <% if @animal.human_attribute_enum(:male_or_female) == "オス" %>
     くん
   <% else %>
     ちゃん
   <% end %>
+  <% if current_user.already_favorited?(@animal) %>
+    <%= link_to animal_favorites_path(@animal), method: :delete do %>
+      <i class="fa-solid fa-star"></i>
+    <% end %>
+  <% else %>
+    <%= link_to animal_favorites_path(@animal), method: :post do %>
+      <i class="fa-regular fa-star"></i>
+    <% end %>
+  <% end %>
 </h2>
 
 <div class="container">
-  <div class="text-center">
+  <div>
     <% if @animal.animal_images.length < 2 %>
       <% @animal.animal_images.each do |image| %>
           <%= image_tag image, class:"d-block my-5 w-100"  %>
@@ -37,15 +46,10 @@
         </div>
       </div>
     <% end %>
-    <p><%= @animal.body %></p>
-    <% if current_user.already_favorited?(@animal) %>
-      <%= link_to "いいねを外す", animal_favorites_path(@animal), method: :delete %>
-    <% else %>
-      <%= link_to "いいね", animal_favorites_path(@animal), method: :post %>
-    <% end %>
+    <p style="font-size: 20px;"><%= @animal.body %></p>
     <% if @animal.user.id == current_user.id %>
       <p><%= link_to "編集", edit_animal_path, class:"btn btn-success" %></p>
     <% end %>
-    <p><%= link_to 'みなさんのペットへ', animals_path, class:"btn btn-light" %>
+    <p><%= link_to 'ペットのみんなへ', animals_path, class:"btn btn-outline-dark" %>
   </div>
 </div>
