@@ -8,7 +8,6 @@ class AnimalsController < ApplicationController
 
   def new
     @animal = Animal.new
-    #@genre_parent_array = Genre.genre_parent_array_create
   end
   
   def create
@@ -25,6 +24,7 @@ class AnimalsController < ApplicationController
     @animal = Animal.find(params[:id])
     @user = current_user
     @animal_tags = @animal.tags
+    @tags = Tag.all
   end
 
   def edit

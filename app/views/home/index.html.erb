@@ -3,31 +3,16 @@
     <div class="container">
       <div class="row text-center">
         <div class="form-area mt-4">
-          <p class="form-area-title mb-4" style="font-size: 40px; font-weight: bold; font-family: ui-rounded;">思う存分ペットを自慢したり<br>動物たちに癒されよう<i class="fa-solid fa-dove ms-2"></i></p>
+          <p class="form-area-title mb-4" style="font-size: 40px; font-weight: bold; font-family: fantasy;">思う存分ペットを自慢したり<br>動物たちに癒されよう<i class="fa-solid fa-dove ms-2"></i></p>
           <%= form_tag(animals_search_path, method: :get) do %>
             <%= label_tag %>
-            <%= text_field_tag "keyword", "",{ class: "form-control mb-4", placeholder: "犬種や猫種、ニホンアマガエルなど" } %>
-            <%= submit_tag "探す" ,{ class: "form-control btn-primary mb-4" } %>
+            <%= text_field_tag "keyword", "",{ class: "form-control mb-4", placeholder: "柴犬・マンチカン・ニホンアマガエルなど" } %>
+            <%= submit_tag "探す" ,{ class: "form-control mb-4 hoge" } %>
           <% end %>
         </div>
       </div>
     </div>
   </div>
-  
-
-  <div class="container">
-    <div class="panel-area mt-5">
-      <h2 class="section-title">ジャンルから探す</h2>
-      <div class="row">
-        <% @tags.each do |tag| %>
-          <div class="col-md-2">
-            <%= link_to tag.name, animals_path(name: tag.id) %>
-          </div>
-        <% end %>
-      </div>
-    </div>
-  </div>
-
   <div class="container">
     <div class="mt-5">
       <h2>新着投稿</h2>
