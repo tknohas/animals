@@ -14,7 +14,7 @@
   </div>
   <div class="p-2 bd-highlight">
     <% if @user.id == current_user.id %>
-      <p><%= link_to "アカウント編集", edit_user_path(current_user), class:"btn btn-success" %></p>
+      <p><i class="fa-solid fa-pen"></i><%= link_to "編集", edit_user_path, class:"btn btn-white btn-lg fw-bold" %></p>
     <% end %>
   </div>
 </div>

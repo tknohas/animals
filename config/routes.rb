@@ -1,11 +1,4 @@
 Rails.application.routes.draw do
-  get 'facilities/index'
-  get 'facilities/new'
-  get 'facilities/show'
-  get 'facilities/edit'
-  get 'tags/search'
-  get 'genres/index'
-  get 'genres/edit'
   devise_for :users
   root to: "home#index"
   resources :users

@@ -10,6 +10,7 @@
 h1 {
   font-family: YuGothic;
   font-weight: bold;
+  margin-top: 1em;
 }
 
 h2 {
@@ -40,6 +41,11 @@ h2 {
 }
 
 .form-control {
+  border-color: #d2b48c;
+  border-width: medium;
+}
+
+.card {
   border-color: #d2b48c;
   border-width: medium;
 }

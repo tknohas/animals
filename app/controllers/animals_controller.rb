@@ -24,7 +24,6 @@ class AnimalsController < ApplicationController
     @animal = Animal.find(params[:id])
     @user = current_user
     @animal_tags = @animal.tags
-    @tags = Tag.all
   end
 
   def edit
@@ -46,7 +45,7 @@ class AnimalsController < ApplicationController
   def destroy
     animal = Animal.find(params[:id])
     animal.destroy
-    redirect_to animals_url, notice: 'Animal was successfully destroyed.'
+    redirect_to animals_url, notice: '投稿が削除されました。'
   end
 
   private

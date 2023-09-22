@@ -42,7 +42,7 @@ class FacilitiesController < ApplicationController
   def destroy
     facility = Facility.find(params[:id])
     facility.destroy
-    redirect_to facilities_url, notice: 'Facility was successfully destroyed.'
+    redirect_to facilities_url, notice: '施設が削除されました。'
   end
 
   private
