@@ -1,4 +1,5 @@
-<nav class="navbar navbar-expand-lg navbar-white" style="background-color:#d2b48c;">
+<header class="sticky-top">
+  <nav class="navbar navbar-expand-lg navbar-white" style="background-color:#d2b48c;">
     <%= link_to root_path, class:"navbar-brand" do %>
       <i class="fa-solid fa-house"></i>
     <% end %>
@@ -33,7 +34,7 @@
                 <li><%= link_to "アカウント設定", edit_user_registration_path, class:"dropdown-item" %></li>
                 <li><%= link_to "プロフィール設定", edit_user_path(current_user), class:"dropdown-item" %></li>
                 <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete, class:"dropdown-item" %></li>
-                <li><%= button_to "退会", registration_path(current_user), data: { confirm: "アカウントを削除してよろしいですか？", turbo_confirm: "アカウントを削除してよろしいですか？" }, method: :delete, class:"dropdown-item" %></li>
+                <li><%= link_to "退会", registration_path(current_user), data: { confirm: "アカウントを削除してよろしいですか？", turbo_confirm: "アカウントを削除してよろしいですか？" }, method: :delete, class:"dropdown-item text-danger" %></li>
               </ul>
             </div>
           </li>
@@ -47,3 +48,4 @@
       <% end %>
     </div>
   </nav>
+</header>

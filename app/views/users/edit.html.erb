@@ -28,9 +28,9 @@
           <%= f.text_area :profile, class:"form-control" %>
         </div>
           
-        <div class="text-center">
-          <p><br><%= f.submit "編集を完了する", class:"btn btn-primary" %></p>
-          <p><%= link_to "マイページへ戻る", user_path(@user) %></p>
+        <div class="text-center mt-3">
+          <p><%= f.submit "編集を完了する", class:"btn btn-outline-primary" %></p>
+          <p><%= link_to "マイページへ", user_path(current_user), class:"btn btn-outline-dark" %></p>
         </div>
       <% end %>
     </div>

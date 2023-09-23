@@ -31,7 +31,7 @@
   
   <%= f.hidden_field :user_id, value: current_user.id %>
   <div class="text-center mt-3">
-    <p><%= f.submit "保存", class:"btn btn-primary" %></p>
-    <p><%= link_to '戻る', :back %></p>
+    <p><%= f.submit "保存", class:"btn btn-outline-primary" %></p>
+    <p><%= link_to '戻る', :back, class:"btn btn-outline-dark" %></p>
   </div>
 <% end %>

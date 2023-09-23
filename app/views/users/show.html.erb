@@ -19,30 +19,7 @@
   </div>
 </div>
 
-<h3><%= @user.username %>さんの投稿</h3>
+<h2><%= @user.username %>さんの投稿</h2>
 
-<div class="container">
-  <div class="row">
-    <% @animals.each do |animal| %>
-      <div class="col-md-4">
-        <div class="card">
-          <div class="card-top text-center">
-            <%= link_to animal_path(animal) do %>
-              <% if animal.animal_images.attached? %>
-                <%= image_tag animal.animal_images.first, width: '50%', height: '50%' %>
-              <% else %>
-                <%= image_tag "no-image.jpeg", :size => '300x200' %>
-              <% end %>
-            <% end %>
-          </div>
-          <div class="card-body text-center">
-            <h4 class="card-title"><%= link_to animal.animalname, animal_path(animal), class:"text-decoration-none" %></h4>
-            <p class="card-text"><%= animal.body %></p>
-          </div>
-        </div>
-      </div>
-    <% end %>
-  </div>
-</div>
-<p><%= link_to "1つ前のページへ戻る", :back, class:"btn btn-light mt-4" %></p>
-<p><%= link_to "ユーザー一覧ページ", users_path, class:"btn btn-light" %></p>
+<%= render 'animals/animal_each' %>
+<p class="text-center mt-3"><%= link_to "ユーザー一覧ページ", users_path, class:"btn btn-outline-dark" %></p>

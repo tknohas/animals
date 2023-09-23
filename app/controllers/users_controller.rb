@@ -10,7 +10,6 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @animal = Animal.find(params[:id])
     @animals = Animal.where(user_id: "#{@user.id}")
   end
 
