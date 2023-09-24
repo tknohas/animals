@@ -15,7 +15,6 @@ class Animal < ApplicationRecord
   with_options presence: true do
     validates :animalname
     validates :body
-    validates :animal_images
     validates :category
   end
   validates :body, length: { maximum: 140 }
