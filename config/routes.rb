@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
   devise_for :users
   root to: "home#index"
-  resources :users
+  resources :users do
+    member do
+      get :favorites
+    end
+  end
   namespace :animals do
     resource :search, only: :show, controller: :search
   end

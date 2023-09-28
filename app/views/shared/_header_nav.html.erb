@@ -41,7 +41,7 @@
         </ul>
       <% else %>
         <ul class="navbar-nav">
-          <li><%= link_to "ログイン", new_user_session_path, class: 'btn btn-primary my-2 mx-3' %></li>
+          <li><%= link_to "ログイン", new_user_session_path, class: 'btn btn-primary my-2 mx-3 header_login' %></li>
           <li><%= link_to "登録する", new_user_registration_path, class: 'btn btn-secondary my-2 mx-3' %></li>
           <li><%= link_to 'ゲストログイン', users_guest_sign_in_path, method: :post, class:"btn btn-success my-2 mx-3" %></li>
         </ul>

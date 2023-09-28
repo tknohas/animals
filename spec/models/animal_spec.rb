@@ -28,4 +28,7 @@ RSpec.describe Animal, type: :model do
     animal.body = Faker::Lorem.characters(number: 141)
     expect(animal).to_not be_valid
   end
-end
+  describe "enum" do
+    it {is_expected.to define_enum_for(:male_or_female).with_values(male: 0, female: 1) }
+  end
+ end
