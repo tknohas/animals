@@ -3,9 +3,9 @@
     <% @animals.each do |animal| %>
       <div class="col-md-4">
         <div class="card mt-3">
-          <div class="d-flex flex-row">
+          <div class="d-flex flex-row user">
             <%= image_tag (animal.user.user_image.presence || 'no-image.jpeg'), style: "border-radius: 50%;", :size => '50x50'  %>
-            <%= link_to animal.user.username, user_path(animal.user.id), class:"btn btn-white btn-lg" %>
+            <%= link_to animal.user.username, user_path(animal.user.id), class:"btn btn-white btn-lg user-btn" %>
           </div>
           <div class="card-top text-center">
             <%= link_to animal_path(animal) do %>

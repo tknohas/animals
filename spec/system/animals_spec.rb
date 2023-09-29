@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe "Animals", type: :system do
   let!(:animal) { create(:animal, user: user) }
   let(:user) { create(:user) }
-  let!(:female_animal) { create(:animal, user: user, male_or_female: 1) }
+  let!(:female_animal) { create(:animal, user: user, male_or_female: 1, animalname: "はち") }
   before do
     driven_by(:rack_test)
     visit root_path
@@ -13,7 +13,7 @@ RSpec.describe "Animals", type: :system do
     click_on "ログインする"
   end
 
-  describe "一覧画面" do
+  describe "#index" do
     before do 
       visit animals_path
     end
@@ -24,22 +24,18 @@ RSpec.describe "Animals", type: :system do
       it "動物名が表示されること" do
         expect(page).to have_content animal.animalname
       end
+      it "編集ボタンが表示されること" do
+        expect(page).to have_link "編集"
+      end
     end
     describe "リンクの遷移" do
       it "ユーザー名をクリックするとユーザー詳細画面へ遷移すること" do
-        click_on animal.user.username
+        page.first('.user-btn').click
         expect(current_path).to eq user_path(animal.user.id)
       end
       it "動物名をクリックすると詳細画面へ遷移すること" do
-        within ".hoge" do
-          click_on animal.animalname
-          expect(current_path).to eq animal_path(animal.id)
-        end
-      end
-    end
-    describe "編集ボタン" do
-      it "編集ボタンが表示されること" do
-        expect(page).to have_link "編集"
+        click_on animal.animalname
+        expect(current_path).to eq animal_path(animal.id)
       end
       it "編集画面へ遷移すること" do
         click_on "編集", match: :first
@@ -48,9 +44,10 @@ RSpec.describe "Animals", type: :system do
     end
   end
 
-  describe "新規投稿" do
+  describe "#new" do
     before do 
       visit new_animal_path
+      save_and_open_page
     end
     describe "表示の確認" do
       it "動物名の入力フォームが表示されること" do
@@ -120,12 +117,12 @@ RSpec.describe "Animals", type: :system do
       end
       describe "性別が表示されること" do
         context "オスの場合" do
-          it "くんと表示されること" do
+          it "「くん」と表示されること" do
             expect(page).to have_content "くん"
           end
         end
         context "メスの場合" do
-          it "ちゃんと表示されること" do
+          it "「ちゃん」と表示されること" do
             visit animal_path(female_animal.id)
             expect(page).to have_content "ちゃん"
           end
@@ -137,9 +134,13 @@ RSpec.describe "Animals", type: :system do
         click_on "ペットのみんなへ"
         expect(current_path).to eq animals_path
       end
+      it "編集画面へ遷移すること" do
+        click_on "編集"
+        expect(current_path).to eq edit_animal_path(animal.id)
+      end
     end
   end
-  describe "編集" do
+  describe "#edit" do
     before do
       visit edit_animal_path(animal.id)
     end
@@ -187,7 +188,7 @@ RSpec.describe "Animals", type: :system do
       end
     end
   end
-  describe "検索する" do
+  describe "#search" do
     before do
       visit root_path
     end
