@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "Homes", type: :system do
   let(:user) { create(:user) }
+  let!(:animals) { create_list(:animal, 9, user: user) }
   before do
     driven_by(:rack_test)
     visit root_path
@@ -75,6 +76,20 @@ RSpec.describe "Homes", type: :system do
         visit root_path
         expect(page).to have_selector("img[src$='attachment.jpg']")
       end
+    end
+  end
+  describe "body" do
+    it "検索フォームが表示されること" do
+      expect(page).to have_field "keyword"
+      expect(page).to have_button "探す"
+    end
+    it "新着投稿が9件表示されること" do
+      animals[0..8].all? do |animal|
+        expect(page.all(".animal-card").count).to eq 9
+      end
+    end
+    it "新着投稿が10件以上表示されないこと" do
+      expect(page.all(".animal-card").count).to_not eq 10
     end
   end
 end
