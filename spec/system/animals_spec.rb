@@ -1,39 +1,54 @@
 require 'rails_helper'
 
 RSpec.describe "Animals", type: :system do
-  let!(:animal) { create(:animal) }
-  let(:animal1) { create(:animal, male_or_female: 1) }
+  let!(:animal) { create(:animal, user: user) }
   let(:user) { create(:user) }
+  let!(:female_animal) { create(:animal, user: user, male_or_female: 1) }
   before do
     driven_by(:rack_test)
     visit root_path
-    click_on "ゲストログイン"
+    click_on "ログイン"
+    fill_in "Eメール", with: user.email
+    fill_in "パスワード", with: user.password
+    click_on "ログインする"
   end
 
   describe "一覧画面" do
     before do 
       visit animals_path
-      save_and_open_page
     end
-    it "ユーザー名が表示されること" do
-      expect(page).to have_content animal.user.username
+    describe "表示の確認" do
+      it "ユーザー名が表示されること" do
+        expect(page).to have_content animal.user.username
+      end
+      it "動物名が表示されること" do
+        expect(page).to have_content animal.animalname
+      end
     end
-    it "ユーザー名をクリックするとユーザー詳細画面へ遷移すること" do
-      click_on animal.user.username
-      expect(current_path).to eq user_path(animal.user.id)
+    describe "リンクの遷移" do
+      it "ユーザー名をクリックするとユーザー詳細画面へ遷移すること" do
+        click_on animal.user.username
+        expect(current_path).to eq user_path(animal.user.id)
+      end
+      it "動物名をクリックすると詳細画面へ遷移すること" do
+        within ".hoge" do
+          click_on animal.animalname
+          expect(current_path).to eq animal_path(animal.id)
+        end
+      end
     end
-    it "動物名が表示されること" do
-      expect(page).to have_content animal.animalname
-    end
-    it "動物名をクリックすると詳細画面へ遷移すること" do
-      within ".hoge" do
-        click_on animal.animalname
-        expect(current_path).to eq animal_path(animal.id)
+    describe "編集ボタン" do
+      it "編集ボタンが表示されること" do
+        expect(page).to have_link "編集"
+      end
+      it "編集画面へ遷移すること" do
+        click_on "編集", match: :first
+        expect(current_path).to eq edit_animal_path(animal.id)
       end
     end
   end
 
-  describe "新規投稿画面" do
+  describe "新規投稿" do
     before do 
       visit new_animal_path
     end
@@ -94,30 +109,113 @@ RSpec.describe "Animals", type: :system do
       visit animal_path(animal.id)
     end
     describe "表示の確認" do
+      it "投稿画像が表示されること" do
+        expect(page).to have_selector("img[src$='attachment.jpg']")
+      end
       it "ペットの名前が表示されること" do
         expect(page).to have_content animal.animalname
       end
       it "投稿内容が表示されること" do
         expect(page).to have_content animal.body
       end
+      describe "性別が表示されること" do
+        context "オスの場合" do
+          it "くんと表示されること" do
+            expect(page).to have_content "くん"
+          end
+        end
+        context "メスの場合" do
+          it "ちゃんと表示されること" do
+            visit animal_path(female_animal.id)
+            expect(page).to have_content "ちゃん"
+          end
+        end
+      end
     end
-    it "ペットの一覧画面へ遷移すること" do
-      click_on "ペットのみんなへ"
-      expect(current_path).to eq animals_path
+    describe "リンクの遷移" do
+      it "ペットの一覧画面へ遷移すること" do
+        click_on "ペットのみんなへ"
+        expect(current_path).to eq animals_path
+      end
     end
-    it "" do
-      visit animal_path(animal1.id)
-      save_and_open_page
-      expect(page).to have_content "くん"
+  end
+  describe "編集" do
+    before do
+      visit edit_animal_path(animal.id)
+    end
+    describe "表示の確認" do
+      it "動物名の入力フォームが表示されること" do
+        expect(page).to have_field 'animal[animalname]', with: animal.animalname
+      end
+      it "投稿内容の入力フォームが表示されること" do
+        expect(page).to have_field 'animal[body]', with: animal.body
+      end
+      it "投稿画像の選択フォームが表示されること" do
+        expect(page).to have_field 'animal[animal_images][]'
+      end
+      it "性別のセレクトボックスが表示されること" do
+        expect(page).to have_field 'animal[male_or_female]', with: animal.male_or_female
+      end
+      it "カテゴリーの入力フォームが表示されること" do
+        expect(page).to have_field 'animal[category]', with:animal.category
+      end
+      it "投稿ボタンが表示されること" do
+        expect(page).to have_button '保存'
+      end
+      it "戻るボタンが表示されること" do
+        expect(page).to have_link '戻る'
+      end
+      it "投稿の編集と表示されること" do
+        expect(page).to have_content '投稿の編集'
+      end
+    end
+    describe '編集する' do
+      it "更新が完了すること" do
+        fill_in "ペットのおなまえ", with: animal.animalname
+        fill_in "投稿内容", with: animal.body
+        select "メス"
+        fill_in "ペットの名称", with: animal.category
+        attach_file "写真", "#{Rails.root}/spec/files/attachment.jpg"
+        # check 'ネコちゃん'
+        click_on "保存"
+        expect(page).to have_content '更新に成功しました。'
+      end
+      it "更新に失敗すること" do
+        fill_in "ペットのおなまえ", with: ''
+        click_on "保存"
+        expect(page).to have_content 'errorが発生しています。'
+      end
     end
   end
   describe "検索する" do
-    it "検索" do
+    before do
       visit root_path
+    end
+    it "探すボタンを押下すると検索結果へ遷移すること" do
+      click_on "探す"
+      expect(current_path).to eq animals_search_path
+    end
+    it "categoryで検索すると対象の動物が表示されること" do
+      fill_in "keyword", with: animal.category
+      click_on "探す"
+      expect(page).to have_content animal.animalname
+      expect(page).to have_content animal.category
+      expect(page).to have_selector("img[src$='attachment.jpg']")
+    end
+    it "animalnameで検索すると対象の動物が表示されること" do
       fill_in "keyword", with: animal.animalname
       click_on "探す"
-      save_and_open_page
       expect(page).to have_content animal.animalname
+      expect(page).to have_content animal.category
+      expect(page).to have_selector("img[src$='attachment.jpg']")
+    end
+    it "keywordではない文字を入力すると検索結果が表示されないこと" do
+      fill_in "keyword", with: "動物"
+      click_on "探す"
+      expect(page).to have_content "0件"
+      expect(page).to_not have_content animal.animalname
+      expect(page).to_not have_content animal.category
+      expect(page).to_not have_selector("img[src$='attachment.jpg']")
     end
   end
 end
