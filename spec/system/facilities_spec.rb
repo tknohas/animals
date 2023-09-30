@@ -35,7 +35,7 @@ RSpec.describe "Facilities", type: :system do
         expect(page).to have_content "削除"
       end
     end
-    describe "リンクの遷移" do
+    describe  "リンクの遷移"  do
       it "施設名をクリックすると施設の詳細画面に遷移すること" do
         click_on facility.facility_name
         expect(current_path).to eq facility_path(facility.id)
@@ -62,6 +62,56 @@ RSpec.describe "Facilities", type: :system do
           expect(page).to have_content facility.facility_name
         end
       end
+    end
+  end
+  
+  describe "#new" do
+    before do
+      visit new_facility_path
+    end
+    describe "表示の確認" do
+      it "施設名の入力フォームが表示されること" do
+        expect(page).to have_field 'facility[facility_name]'
+      end
+      it "施設紹介文の入力フォームが表示されること" do
+        expect(page).to have_field 'facility[introduction]'
+      end
+      it "住所の入力フォームが表示されること" do
+        expect(page).to have_field 'facility[address]'
+      end
+      it "リンクの入力フォームが表示されること" do
+        expect(page).to have_field 'facility[link_to_site]'
+      end
+      it "保存ボタンが表示されること" do
+        expect(page).to have_button '保存'
+      end
+      it "戻るボタンが表示されること" do
+        expect(page).to have_link '戻る'
+      end
+    end
+    describe '施設の投稿' do
+      it '投稿が完了すること' do
+        fill_in "facility[facility_name]", with: facility.facility_name
+        fill_in "facility[introduction]", with: facility.introduction
+        fill_in "facility[address]", with: facility.address
+        fill_in "facility[link_to_site]", with: facility.link_to_site
+        click_on "保存"
+        expect(page).to have_content "施設の登録に成功しました。"
+      end
+      it '投稿に失敗すること' do
+        fill_in "facility[facility_name]", with: ""
+        fill_in "facility[introduction]", with: ""
+        fill_in "facility[address]", with: ""
+        fill_in "facility[link_to_site]", with: ""
+        click_on "保存"
+        expect(page).to have_content "errorが発生しています。"
+      end
+    end
+    it "戻るボタンをクリックすると前の画面に遷移すること" do
+      visit root_path
+      click_on "施設の投稿"
+      click_on "戻る"
+      expect(current_path).to eq root_path
     end
   end
 end

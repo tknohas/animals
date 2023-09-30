@@ -47,7 +47,6 @@ RSpec.describe "Animals", type: :system do
   describe "#new" do
     before do 
       visit new_animal_path
-      save_and_open_page
     end
     describe "表示の確認" do
       it "動物名の入力フォームが表示されること" do
