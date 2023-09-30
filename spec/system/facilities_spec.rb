@@ -114,4 +114,71 @@ RSpec.describe "Facilities", type: :system do
       expect(current_path).to eq root_path
     end
   end
+
+  describe "#show" do
+    before do
+      visit facility_path(facility.id)
+    end
+    describe "表示の確認" do
+      it "facility_nameが表示されること" do
+        expect(page).to have_content facility.facility_name
+      end
+      it "introductionが表示されること" do
+        expect(page).to have_content facility.introduction
+      end
+      it "addressが表示されること" do
+        expect(page).to have_content facility.address
+      end
+      it "link_to_siteが表示されること" do
+        expect(page).to have_link facility.link_to_site
+      end
+      it "編集リンクが表示されること" do
+        expect(page).to have_link "編集"
+      end
+      it "削除リンクが表示されること" do
+        expect(page).to have_link "削除"
+      end
+    end
+    describe "リンクの遷移" do
+      it "編集画面へ遷移すること" do
+        click_on "編集"
+        expect(current_path).to eq edit_facility_path(facility.id)
+      end
+      it "施設のリンク先へ遷移すること" do
+        click_on facility.link_to_site
+        expect(current_path).to eq facility.link_to_site
+      end
+    end
+    describe "施設の削除", js: true do
+      before do
+        visit facility_path(facility.id)
+        click_on "削除"
+      end
+      context "削除ボタンをクリックしOKを選んだ場合" do
+        it "施設が削除されること" do
+          expect(page.accept_confirm).to eq "削除しますか？"
+          expect(page).to have_content "施設が削除されました。"
+        end
+      end
+      context "削除ボタンをクリックしキャンセルを選んだ場合" do
+        it "施設が削除されないこと" do
+          expect(page.dismiss_confirm).to eq "削除しますか？"
+          expect(page).to have_content facility.facility_name
+        end
+      end
+    end
+    describe "自身が登録していない施設の詳細画面" do
+      before do
+        click_on "ログアウト"
+        click_on "ゲストログイン"
+        visit facility_path(facility.id)
+      end
+      it "編集画面へのリンクが表示されないこと" do  
+        expect(page).to_not have_link "編集"
+      end
+      it "削除リンクが表示されないこと" do  
+        expect(page).to_not have_link "削除"
+      end
+    end
+  end
 end
