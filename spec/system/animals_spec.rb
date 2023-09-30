@@ -5,7 +5,6 @@ RSpec.describe "Animals", type: :system do
   let(:user) { create(:user) }
   let!(:female_animal) { create(:animal, user: user, male_or_female: 1, animalname: "はち") }
   before do
-    driven_by(:rack_test)
     visit root_path
     click_on "ログイン"
     fill_in "Eメール", with: user.email
@@ -114,6 +113,12 @@ RSpec.describe "Animals", type: :system do
       it "投稿内容が表示されること" do
         expect(page).to have_content animal.body
       end
+      it "編集ボタンが表示されること" do
+        expect(page).to have_link "編集"
+      end
+      it "削除ボタンが表示されること" do
+        expect(page).to have_link "削除"
+      end
       describe "性別が表示されること" do
         context "オスの場合" do
           it "「くん」と表示されること" do
@@ -136,6 +141,23 @@ RSpec.describe "Animals", type: :system do
       it "編集画面へ遷移すること" do
         click_on "編集"
         expect(current_path).to eq edit_animal_path(animal.id)
+      end
+    end
+    describe "投稿の削除", js: true do
+      before do
+        click_on "削除"
+      end
+      context "削除ボタンをクリックしOKを選んだ場合" do
+        it "投稿が削除されること" do
+          expect(page.accept_confirm).to eq "削除しますか？"
+          expect(page).to have_content "投稿が削除されました。"
+        end
+      end
+      context "削除ボタンをクリックしキャンセルを選んだ場合" do
+        it "投稿が削除されないこと" do
+          expect(page.dismiss_confirm).to eq "削除しますか？"
+          expect(page).to have_content animal.animalname
+        end
       end
     end
   end
