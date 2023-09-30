@@ -100,9 +100,6 @@ RSpec.describe "Facilities", type: :system do
       end
       it '投稿に失敗すること' do
         fill_in "facility[facility_name]", with: ""
-        fill_in "facility[introduction]", with: ""
-        fill_in "facility[address]", with: ""
-        fill_in "facility[link_to_site]", with: ""
         click_on "保存"
         expect(page).to have_content "errorが発生しています。"
       end
@@ -179,6 +176,53 @@ RSpec.describe "Facilities", type: :system do
       it "削除リンクが表示されないこと" do  
         expect(page).to_not have_link "削除"
       end
+    end
+  end
+  
+  describe "#edit" do
+    before do
+      visit edit_facility_path(facility.id)
+    end
+    describe "表示の確認" do
+      it "施設名の入力フォームが表示されること" do
+        expect(page).to have_field 'facility[facility_name]', with: facility.facility_name
+      end
+      it "施設紹介文の入力フォームが表示されること" do
+        expect(page).to have_field 'facility[introduction]', with: facility.introduction
+      end
+      it "住所の入力フォームが表示されること" do
+        expect(page).to have_field 'facility[address]', with: facility.address
+      end
+      it "リンクの入力フォームが表示されること" do
+        expect(page).to have_field 'facility[link_to_site]', with: facility.link_to_site
+      end
+      it "保存ボタンが表示されること" do
+        expect(page).to have_button '保存'
+      end
+      it "戻るボタンが表示されること" do
+        expect(page).to have_link '戻る'
+      end
+    end
+    describe '施設の編集' do
+      it '更新が完了すること' do
+        fill_in "facility[facility_name]", with: facility.facility_name
+        fill_in "facility[introduction]", with: facility.introduction
+        fill_in "facility[address]", with: facility.address
+        fill_in "facility[link_to_site]", with: facility.link_to_site
+        click_on "保存"
+        expect(page).to have_content "施設の更新に成功しました。"
+      end
+      it '更新に失敗すること' do
+        fill_in "facility[facility_name]", with: ""
+        click_on "保存"
+        expect(page).to have_content "errorが発生しています。"
+      end
+    end
+    it "戻るボタンをクリックすると前の画面に遷移すること" do
+      visit facilities_path
+      click_on "編集"
+      click_on "戻る"
+      expect(current_path).to eq facilities_path
     end
   end
 end

@@ -24,6 +24,9 @@
     <div class="card-top ms-auto">
       <% if @animal.user.id == current_user.id %>
         <i class="fa-solid fa-pen"></i><%= link_to "編集", edit_animal_path, class:"btn btn-white btn-lg fw-bold" %>
+        <%= link_to @animal, method: :delete, data: {confirm: "削除しますか？"} do %>
+          <p class="text-end text-danger"><i class="fa-solid fa-trash"></i><span class="btn btn-white btn-lg fw-bold text-danger">削除</span></p>
+        <% end %>
       <% end %>
     </div>
     <div>

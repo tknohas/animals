@@ -64,7 +64,7 @@ RSpec.describe "Animals", type: :system do
       it "カテゴリーの入力フォームが表示されること" do
         expect(page).to have_field 'animal[category]'
       end
-      it "投稿ボタンが表示されること" do
+      it "保存ボタンが表示されること" do
         expect(page).to have_button '保存'
       end
       it "戻るボタンが表示されること" do
@@ -159,7 +159,7 @@ RSpec.describe "Animals", type: :system do
       it "カテゴリーの入力フォームが表示されること" do
         expect(page).to have_field 'animal[category]', with:animal.category
       end
-      it "投稿ボタンが表示されること" do
+      it "保存ボタンが表示されること" do
         expect(page).to have_button '保存'
       end
       it "戻るボタンが表示されること" do

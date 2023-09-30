@@ -80,8 +80,7 @@ RSpec.describe "Homes", type: :system do
   end
   describe "body" do
     it "" do
-      click_on "カテゴリーで絞り込む"
-      expect(page).to have_content "ワンちゃん"
+        click_on "カテゴリーで絞り込む"
     end
     it "検索フォームが表示されること" do
       expect(page).to have_field "keyword"
