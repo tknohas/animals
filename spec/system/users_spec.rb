@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "Users", type: :system do
   let(:user) { create(:user) }
+  let!(:animal) { create(:animal, user: user) }
   before do
     driven_by(:rack_test)
     visit root_path
@@ -63,6 +64,70 @@ RSpec.describe "Users", type: :system do
     before do
       visit user_path(user.id)
     end
-    describe 
+    describe "表示の確認" do
+      describe "ユーザー情報が表示されること" do
+        it "ユーザー画像が表示されること" do
+          click_on "プロフィール設定"
+          attach_file "user[user_image]", "#{Rails.root}/spec/files/attachment.jpg"
+          click_on "編集を完了する"
+          visit root_path
+          expect(page).to have_selector("img[src$='attachment.jpg']")
+        end
+        it "ユーザー名が表示されること" do
+          expect(page).to have_content user.username
+        end
+        it "自己紹介文が表示されること" do
+          expect(page).to have_content user.profile
+        end
+        it "edit_user_pathへのリンクが表示されること" do
+          expect(page).to have_css '.edit-user'
+        end
+      end
+      describe "自身の投稿が表示されること" do
+        it "ユーザー名が表示されること" do
+          expect(page).to have_content user.username
+        end
+        it "投稿画像が表示されること" do
+          expect(page).to have_selector("img[src$='attachment.jpg']")
+        end
+        it "動物名が表示されること" do
+          expect(page).to have_content animal.animalname
+        end
+        it "edit_animal_pathへ遷移するボタンが表示されること" do
+          expect(page).to have_css '.animal-edit-button'
+        end
+      end
+      it "users_pathへの遷移ボタンが表示されること" do
+        expect(page).to have_link "ユーザーのみなさん"
+      end
+      describe "表示されないこと" do
+        before do 
+          click_on "ログアウト"
+          click_on "ゲストログイン"
+          visit user_path(1)
+        end
+        it "編集ボタンが表示されないこと" do
+          expect(page).to_not have_link "編集"
+        end
+      end
+    end 
+    describe "リンクの遷移" do
+      it "投稿をクリックすると投稿詳細画面へ遷移すること" do
+        click_on "animal_images"
+        expect(current_path).to eq animal_path(animal.id)
+      end
+      it "投稿内の編集ボタンをクリックするとanimal_pathへ遷移すること" do
+        within ".card" do
+          click_on "編集"
+          expect(current_path).to eq edit_animal_path(animal.id)
+        end
+      end
+      it "ユーザーのみなさんをクリックするとusers_pathへ遷移すること" do
+        within ".users-link" do
+          click_on "ユーザーのみなさん"
+          expect(current_path).to eq users_path
+        end
+      end
+    end
   end
 end

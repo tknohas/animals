@@ -14,7 +14,7 @@
   </div>
   <div class="p-2 bd-highlight">
     <% if @user.id == current_user.id %>
-      <p><i class="fa-solid fa-pen"></i><%= link_to "編集", edit_user_path, class:"btn btn-white btn-lg fw-bold" %></p>
+      <p><i class="fa-solid fa-pen"></i><%= link_to "編集", edit_user_path, class:"btn btn-white btn-lg fw-bold edit-user" %></p>
     <% end %>
   </div>
 </div>
@@ -22,4 +22,4 @@
 <h2><%= @user.username %>さんの投稿</h2>
 
 <%= render 'animals/animal_each' %>
-<p class="text-center mt-3"><%= link_to "ユーザー一覧ページ", users_path, class:"btn btn-outline-dark" %></p>
+<p class="text-center mt-3 users-link"><%= link_to "ユーザーのみなさん", users_path, class:"btn btn-outline-dark" %></p>

@@ -34,6 +34,7 @@
                   <%= current_user.username %>
               </button>
               <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
+                <li><%= link_to "マイページ", user_path(current_user.id), class:"dropdown-item" %></li>
                 <li><%= link_to "アカウント設定", edit_user_registration_path, class:"dropdown-item" %></li>
                 <li><%= link_to "プロフィール設定", edit_user_path(current_user), class:"dropdown-item" %></li>
                 <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete, class:"dropdown-item" %></li>
