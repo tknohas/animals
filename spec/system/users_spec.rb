@@ -159,17 +159,37 @@ RSpec.describe "Users", type: :system do
       end
     end
     describe 'ユーザーの編集' do
-      it '更新が完了すること' do
-        attach_file "user[user_image]", "#{Rails.root}/spec/files/attachment.jpg"
-        fill_in "user[username]", with: user.username
-        fill_in "user[profile]", with: user.profile
-        click_on "編集を完了する"
-        expect(page).to have_content "更新に成功しました。"
+      describe "プロフィール設定の編集" do
+        it '更新が完了すること' do
+          attach_file "user[user_image]", "#{Rails.root}/spec/files/attachment.jpg"
+          fill_in "user[username]", with: user.username
+          fill_in "user[profile]", with: user.profile
+          click_on "編集を完了する"
+          expect(page).to have_content "更新に成功しました。"
+        end
+        it '更新に失敗すること' do
+          fill_in "user[username]", with: ""
+          click_on "編集を完了する"
+          expect(page).to have_content "errorが発生しています。"
+        end
       end
-      it '更新に失敗すること' do
-        fill_in "user[username]", with: ""
-        click_on "編集を完了する"
-        expect(page).to have_content "errorが発生しています。"
+      describe "アカウント設定の編集" do
+        before do
+          visit edit_user_registration_path
+        end
+        it "更新が完了すること" do
+          fill_in "user[email]", with: user.email
+          fill_in "user[password]", with: "test1234"
+          fill_in "user[password_confirmation]", with: "test1234"
+          fill_in "user[current_password]", with: user.password
+          click_on "保存する"
+          expect(page).to have_content "アカウント情報を変更しました。"
+        end
+        it "更新に失敗すること" do
+          fill_in "user[email]", with: ''
+          click_on "保存する"
+          expect(page).to have_content "件のエラーが発生したため user は保存されませんでした。"
+        end
       end
     end
     describe "不正なアクセス" do

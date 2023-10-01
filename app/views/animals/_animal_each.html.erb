@@ -18,11 +18,11 @@
             <h4 class="card-title animal-card"><%= link_to animal.animalname, animal_path(animal), class:"btn btn-white btn-lg" %></h4>
             <% if user_signed_in? %>
               <% if current_user.already_favorited?(animal) %>
-                <%= link_to animal_favorites_path(animal), method: :delete do %>
+                <%= link_to animal_favorites_path(animal), method: :delete do, class:"good-button" %>
                   <i class="fa-solid fa-star"></i>
                 <% end %>
               <% else %>
-                <%= link_to animal_favorites_path(animal), method: :post do %>
+                <%= link_to animal_favorites_path(animal), method: :post do, class:"good-btn" %>
                   <i class="fa-regular fa-star"></i>
                 <% end %>
               <% end %>
