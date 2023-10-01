@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!, except: [:index]
   def index
-    @users = User.all
+    @users = User.all.page(params[:page]).per(3).order("id DESC")
   end
 
   def new

@@ -1,7 +1,7 @@
 class FacilitiesController < ApplicationController
   before_action :authenticate_user!
   def index
-    @facilities = Facility.all
+    @facilities = Facility.all.page(params[:page]).order("id DESC")
   end
 
   def new
