@@ -4,7 +4,6 @@ RSpec.describe "Homes", type: :system do
   let(:user) { create(:user) }
   let!(:animals) { create_list(:animal, 9, user: user) }
   before do
-    driven_by(:rack_test)
     visit root_path
     click_on "ログイン"
     fill_in "Eメール", with: user.email
@@ -33,6 +32,10 @@ RSpec.describe "Homes", type: :system do
         it "facilities_pathへの遷移" do
           click_on "おすすめ施設" 
           expect(current_path).to eq facilities_path
+        end
+        it "users_pathへの遷移" do
+          click_on "ユーザーのみなさん" 
+          expect(current_path).to eq users_path
         end
         it "edit_user_registration_pathへの遷移" do
           click_on "アカウント設定" 
@@ -79,9 +82,6 @@ RSpec.describe "Homes", type: :system do
     end
   end
   describe "body" do
-    it "" do
-        click_on "カテゴリーで絞り込む"
-    end
     it "検索フォームが表示されること" do
       expect(page).to have_field "keyword"
       expect(page).to have_button "探す"

@@ -135,6 +135,9 @@ RSpec.describe "Facilities", type: :system do
       it "削除リンクが表示されること" do
         expect(page).to have_link "削除"
       end
+      it "地図が表示されること" do
+        expect(page).to have_css '#map'
+      end
     end
     describe "リンクの遷移" do
       it "編集画面へ遷移すること" do
