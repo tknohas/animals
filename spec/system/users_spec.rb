@@ -11,6 +11,7 @@ RSpec.describe "Users", type: :system do
     fill_in "パスワード", with: user.password
     click_on "ログインする"
   end
+  
   describe "新規登録、ログイン" do
     before do 
       click_on "ログアウト"
@@ -60,6 +61,7 @@ RSpec.describe "Users", type: :system do
       end
     end
   end
+  
   describe "#show" do
     before do
       visit user_path(user.id)
@@ -128,6 +130,47 @@ RSpec.describe "Users", type: :system do
           expect(current_path).to eq users_path
         end
       end
+    end
+  end
+
+  describe "#edit" do
+    before do
+      visit edit_user_path(user.id)
+    end
+    describe "表示の確認" do
+      it "ユーザー画像の選択フォームが表示されること" do
+        expect(page).to have_field 'user[user_image]'
+      end
+      it "名前の入力フォームが表示されること" do
+        expect(page).to have_field 'user[username]', with: user.username
+      end
+      it "自己紹介の入力フォームが表示されること" do
+        expect(page).to have_field 'user[profile]'
+      end
+      it "保存ボタンが表示されること" do
+        expect(page).to have_button '編集を完了する'
+      end
+      it "user_pathへのリンクが表示されること" do
+        expect(page).to have_link 'マイページへ'
+      end
+    end
+    describe 'ユーザーの編集' do
+      it '更新が完了すること' do
+        attach_file "user[user_image]", "#{Rails.root}/spec/files/attachment.jpg"
+        fill_in "user[username]", with: user.username
+        fill_in "user[profile]", with: user.profile
+        click_on "編集を完了する"
+        expect(page).to have_content "更新に成功しました。"
+      end
+      it '更新に失敗すること' do
+        fill_in "user[username]", with: ""
+        click_on "編集を完了する"
+        expect(page).to have_content "errorが発生しています。"
+      end
+    end
+    it "「マイページへ」をクリックするとuser_pathに遷移すること" do
+      click_on "マイページへ"
+      expect(current_path).to eq user_path(user.id)
     end
   end
 end
