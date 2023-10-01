@@ -32,6 +32,10 @@ RSpec.describe "Users", type: :system do
       click_on "ログインする"
       expect(page).to have_content "ログインしました。"
     end
+    it "ゲストユーザーとしてログインする" do
+      click_on "ゲストログイン"
+      expect(page).to have_content "ゲストユーザーとしてログインしました。"
+    end
   end
   it "ログアウトする" do
     click_on "ログアウト"
@@ -166,6 +170,16 @@ RSpec.describe "Users", type: :system do
         fill_in "user[username]", with: ""
         click_on "編集を完了する"
         expect(page).to have_content "errorが発生しています。"
+      end
+    end
+    describe "不正なアクセス" do
+      before do
+        click_on "ログアウト"
+        click_on "ゲストログイン"
+      end
+      it "" do
+        visit edit_user_path(user.id)
+        expect(page).to have_content "不正なアクセスです"
       end
     end
     it "「マイページへ」をクリックするとuser_pathに遷移すること" do

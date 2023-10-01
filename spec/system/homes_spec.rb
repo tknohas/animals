@@ -37,6 +37,10 @@ RSpec.describe "Homes", type: :system do
           click_on "ユーザーのみなさん" 
           expect(current_path).to eq users_path
         end
+        it "user_pathへの遷移" do
+          click_on "マイページ" 
+          expect(current_path).to eq user_path(user.id)
+        end
         it "edit_user_registration_pathへの遷移" do
           click_on "アカウント設定" 
           expect(current_path).to eq edit_user_registration_path
@@ -78,6 +82,26 @@ RSpec.describe "Homes", type: :system do
         click_on "編集を完了する"
         visit root_path
         expect(page).to have_selector("img[src$='attachment.jpg']")
+      end
+    end
+    describe "退会する", js: true do
+      before do
+        within ".navbar" do
+          click_on user.username
+          click_on "退会"
+        end
+      end
+      context "退会をクリックしOKを選んだ場合" do
+        it "ユーザーが削除されること" do
+          expect(page.accept_confirm).to eq "アカウントを削除してよろしいですか？"
+          expect(page).to have_content "アカウントを削除しました。またのご利用をお待ちしております。"
+        end
+      end
+      context "退会をクリックしキャンセルを選んだ場合" do
+        it "ユーザーが削除されないこと" do
+          expect(page.dismiss_confirm).to eq "アカウントを削除してよろしいですか？"
+          expect(page).to have_content user.username
+        end
       end
     end
   end

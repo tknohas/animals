@@ -227,5 +227,15 @@ RSpec.describe "Facilities", type: :system do
       click_on "戻る"
       expect(current_path).to eq facilities_path
     end
+    describe "不正なアクセス" do
+      before do
+        click_on "ログアウト"
+        click_on "ゲストログイン"
+      end
+      it "" do
+        visit edit_facility_path(facility.id)
+        expect(page).to have_content "不正なアクセスです"
+      end
+    end
   end
 end

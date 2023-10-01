@@ -208,6 +208,16 @@ RSpec.describe "Animals", type: :system do
         expect(page).to have_content 'errorが発生しています。'
       end
     end
+    describe "不正なアクセス" do
+      before do
+        click_on "ログアウト"
+        click_on "ゲストログイン"
+      end
+      it "" do
+        visit edit_animal_path(animal.id)
+        expect(page).to have_content "不正なアクセスです"
+      end
+    end
   end
   describe "#search" do
     before do
