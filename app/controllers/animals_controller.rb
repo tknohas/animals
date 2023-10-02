@@ -2,7 +2,7 @@ class AnimalsController < ApplicationController
   before_action :authenticate_user!, except: [:index]
   def index
     #@animals = Animal.all
-    @animals = params[:name].present? ? Tag.find(params[:name]).animals : Animal.all.page(params[:page]).per(9).order("id DESC")
+    @animals = params[:name].present? ? Tag.find(params[:name]).animals.page(params[:page]).per(9).order("id DESC") : Animal.all.page(params[:page]).per(9).order("id DESC")
     @tags = Tag.all
   end
 

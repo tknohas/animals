@@ -4,6 +4,7 @@ RSpec.describe "Animals", type: :system do
   let!(:animal) { create(:animal, user: user) }
   let(:user) { create(:user) }
   let!(:female_animal) { create(:animal, user: user, male_or_female: 1, animalname: "はち") }
+  let!(:animals) { create_list(:animal, 10, user: user) }
   before do
     visit root_path
     click_on "ログイン"
@@ -39,6 +40,35 @@ RSpec.describe "Animals", type: :system do
       it "編集画面へ遷移すること" do
         click_on "編集", match: :first
         expect(current_path).to eq edit_animal_path(animal.id)
+      end
+    end
+    describe "ページネーション" do
+      before do
+        visit animals_path
+      end
+      describe "表示の確認" do
+        it "ページネーションが表示されること" do
+          expect(page).to have_css ".pagination"
+        end
+        it "1ページ目に投稿が9件表示されること" do
+          animals[0..8].all? do |animal|
+            expect(page.all(".animal-card").count).to eq 9
+          end
+        end
+        it "新着投稿が10件以上表示されないこと" do
+          expect(page.all(".animal-card").count).to_not eq 10
+        end
+      end
+      describe "遷移すること" do
+        it "2をクリックすると2ページ目へ遷移すること" do
+          click_on "2"
+          expect(current_path).to eq "/animals/page/2"
+        end
+        it "1をクリックすると1ページ目へ遷移すること" do
+          click_on "2"
+          click_on "1"
+          expect(current_path).to eq "/animals"
+        end
       end
     end
   end

@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   end
   resources :animals do
     resource :favorites, only: [:create, :destroy]
+    get 'page/:page', action: :index, on: :collection
   end
   resources :facilities
   devise_scope :user do
