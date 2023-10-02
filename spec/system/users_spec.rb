@@ -1,10 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe "Users", type: :system do
-  let(:user) { create(:user) }
+  let!(:user) { create(:user) }
+  let!(:users) { create_list(:user, 21) }
   let!(:animal) { create(:animal, user: user) }
   before do
-    driven_by(:rack_test)
     visit root_path
     click_on "ログイン"
     fill_in "Eメール", with: user.email
@@ -43,7 +43,7 @@ RSpec.describe "Users", type: :system do
   end
   
   describe "#index" do
-    before do 
+    before do
       visit users_path
     end
     describe "表示の確認" do
@@ -58,10 +58,37 @@ RSpec.describe "Users", type: :system do
         expect(page).to have_selector("img[src$='attachment.jpg']")
       end
     end
-    it "ユーザー詳細画面へ遷移すること" do
-      within ".users-card" do
-        click_on user.username
+    describe "", js:true do
+      it "ユーザー詳細画面へ遷移すること" do
+        visit users_path
+        page.first(".users-card").click 
         expect(current_path).to eq user_path(user.id)
+      end
+    end
+    describe "ページネーション" do
+      describe "表示の確認" do
+        it "ページネーションが表示されること" do
+          expect(page).to have_css ".pagination"
+        end
+        it "1ページ目にユーザーが20件表示されること" do
+          users[0..20].all? do |user|
+            expect(page.all(".users-card").count).to eq 20
+          end
+        end
+        it "ユーザーが1ページに21件以上表示されないこと" do
+          expect(page.all(".users-card").count).to_not eq 21
+        end
+      end
+      describe "遷移すること" do
+        it "2をクリックすると2ページ目へ遷移すること" do
+          click_on "2"
+          expect(current_path).to eq "/users/page/2"
+        end
+        it "1をクリックすると1ページ目へ遷移すること" do
+          click_on "2"
+          click_on "1"
+          expect(current_path).to eq "/users"
+        end
       end
     end
   end
