@@ -3,8 +3,7 @@ require 'rails_helper'
 RSpec.describe "Animals", type: :system do
   let!(:animal) { create(:animal, user: user) }
   let(:user) { create(:user) }
-  let!(:female_animal) { create(:animal, user: user, male_or_female: 1, animalname: "はち") }
-  let!(:animals) { create_list(:animal, 10, user: user) }
+  # let(:animal_tag) { create(:animal_tag, tag: tag, animal: animal) }
   before do
     visit root_path
     click_on "ログイン"
@@ -43,6 +42,7 @@ RSpec.describe "Animals", type: :system do
       end
     end
     describe "ページネーション" do
+      let!(:animals) { create_list(:animal, 9) }
       before do
         visit animals_path
       end
@@ -74,6 +74,7 @@ RSpec.describe "Animals", type: :system do
   end
 
   describe "#new" do
+    let!(:tag) { create(:tag) }
     before do 
       visit new_animal_path
     end
@@ -90,8 +91,11 @@ RSpec.describe "Animals", type: :system do
       it "性別のセレクトボックスが表示されること" do
         expect(page).to have_field 'animal[male_or_female]'
       end
-      it "カテゴリーの入力フォームが表示されること" do
+      it "ペットの名称の入力フォームが表示されること" do
         expect(page).to have_field 'animal[category]'
+      end
+      it "タグのチェックボックスが表示されること" do
+        expect(page).to have_field 'animal[tag_ids][]'
       end
       it "保存ボタンが表示されること" do
         expect(page).to have_button '保存'
@@ -110,7 +114,7 @@ RSpec.describe "Animals", type: :system do
         select "メス"
         fill_in "ペットの名称", with: animal.category
         attach_file "写真", "#{Rails.root}/spec/files/attachment.jpg"
-        # check 'ネコちゃん'
+        check 'tag1'
         click_on "保存"
         expect(page).to have_content '投稿に成功しました。'
       end
@@ -156,6 +160,7 @@ RSpec.describe "Animals", type: :system do
           end
         end
         context "メスの場合" do
+          let(:female_animal) { create(:animal, male_or_female: 1) }
           it "「ちゃん」と表示されること" do
             visit animal_path(female_animal.id)
             expect(page).to have_content "ちゃん"

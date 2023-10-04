@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   let(:user) { build(:user) }
-  it "is valid with username, email and password" do
+  it "名前、メールアドレス、パスワードがあれば有効な状態であること" do
     expect(user).to be_valid
   end
 

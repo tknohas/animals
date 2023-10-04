@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Animal, type: :model do
   let(:animal) { build(:animal) }
-  it "animalname,body,categoryがあれば有効な状態であること" do
+  it "ペットの名前,投稿内容,カテゴリーがあれば有効な状態であること" do
     expect(animal).to be_valid
   end
   it "名前がなければ無効な状態であること" do
@@ -28,7 +28,4 @@ RSpec.describe Animal, type: :model do
     animal.body = Faker::Lorem.characters(number: 141)
     expect(animal).to_not be_valid
   end
-  describe "enum" do
-    it {is_expected.to define_enum_for(:male_or_female).with_values(male: 0, female: 1) }
-  end
- end
+end

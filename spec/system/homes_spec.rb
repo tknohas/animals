@@ -3,6 +3,10 @@ require 'rails_helper'
 RSpec.describe "Homes", type: :system do
   let(:user) { create(:user) }
   let!(:animals) { create_list(:animal, 9, user: user) }
+  let!(:tag) { create(:tag) }
+  let(:animal) { create(:animal, user: user) }
+  let!(:animal_tag) { create(:animal_tag, tag: tag, animal: animal) }
+  let!(:other_tag) { create(:tag) }
   before do
     visit root_path
     click_on "ログイン"
@@ -10,6 +14,7 @@ RSpec.describe "Homes", type: :system do
     fill_in "パスワード", with: user.password
     click_on "ログインする"
   end
+
   describe "nav-bar" do
     describe "nav-barのリンクの遷移" do
       context "ログイン時" do
@@ -110,6 +115,12 @@ RSpec.describe "Homes", type: :system do
       expect(page).to have_field "keyword"
       expect(page).to have_button "探す"
     end
+    it "ドロップダウンボタンが表示されること" do
+      expect(page).to have_content "カテゴリーで絞り込む"
+    end
+    it "tag.nameが表示されること" do
+      expect(page).to have_content tag.name
+    end
     it "新着投稿が9件表示されること" do
       animals[0..8].all? do |animal|
         expect(page.all(".animal-card").count).to eq 9
@@ -117,6 +128,16 @@ RSpec.describe "Homes", type: :system do
     end
     it "新着投稿が10件以上表示されないこと" do
       expect(page.all(".animal-card").count).to_not eq 10
+    end
+    describe "tag.nameをクリックする" do
+      it "タグに紐づく投稿を取得できること" do
+        click_on tag.name
+        expect(page).to have_css(".animal-card")
+      end
+      it "タグに紐づかない投稿は取得しないこと" do
+        click_on other_tag.name
+        expect(page).to_not have_css(".animal-card")
+      end
     end
   end
 end
