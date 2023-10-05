@@ -6,8 +6,7 @@ class Animal < ApplicationRecord
   has_many :favorites, dependent: :destroy
   
   def self.search(params)
-    animals = params[:animal].present? ? where("animalname like ?", "%#{params[:animal]}%") : Animal.all
-    params[:keyword].present? ? animals.where("animalname like ? or category like ?", "%#{params[:keyword]}%", "%#{params[:keyword]}%") : animals
+    params[:keyword].present? ? where("animalname like ? or category like ?", "%#{params[:keyword]}%", "%#{params[:keyword]}%") : Animal.all
   end
 
   enum male_or_female: { male: 0, female: 1}
