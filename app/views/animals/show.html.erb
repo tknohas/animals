@@ -7,16 +7,16 @@
       <% else %>
         ちゃん
       <% end %>
-      <% if current_user.already_favorited?(@animal) %>
-        <%= link_to animal_favorites_path(@animal), method: :delete do %>
-          <i class="fa-solid fa-star"></i>
-        <% end %>
-      <% else %>
-        <%= link_to animal_favorites_path(@animal), method: :post do %>
-          <i class="fa-regular fa-star"></i>
-        <% end %>
-      <% end %>
     </h2>
+    <% if current_user.already_favorited?(animal) %>
+      <%= link_to animal_favorite_path(animal), method: :delete, remote: true do %>
+        <i class="fa-solid fa-star"></i>
+      <% end %>
+    <% else %>
+      <%= link_to animal_favorite_path(animal), method: :post, remote: true do %>
+        <i class="fa-regular fa-star"></i>
+      <% end %>
+    <% end %>
   </div>
 </div>
 <div class="row row-cols-auto justify-content-center" style="margin: 0px auto;">

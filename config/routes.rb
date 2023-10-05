@@ -3,9 +3,7 @@ Rails.application.routes.draw do
   root to: "home#index"
   resources :users do
     get 'page/:page', action: :index, on: :collection
-    member do
-      get :favorites
-    end
+    resources :favorites
   end
   namespace :animals do
     resource :search, only: :show, controller: :search
@@ -14,7 +12,7 @@ Rails.application.routes.draw do
     resource :search, only: :show, controller: :search
   end
   resources :animals do
-    resource :favorites, only: [:create, :destroy]
+    resource :favorite, only: [:create, :destroy]
     get 'page/:page', action: :index, on: :collection
   end
   resources :facilities

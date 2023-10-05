@@ -23,3 +23,5 @@
 
 <%= render 'animals/animal_each' %>
 <p class="text-center mt-3 users-link"><%= link_to "ユーザーのみなさん", users_path, class:"btn btn-outline-dark" %></p>
+
+<%= link_to 'いいね一覧', user_favorites_path(current_user.id) %>

@@ -1,4 +1,8 @@
 class FavoritesController < ApplicationController
+  def index
+    @animals = Animal.joins(:favorites).where(favorites: { user_id: params[:user_id] })
+  end
+
   def create
     @favorite = current_user.favorites.create(animal_id: params[:animal_id])
     redirect_back(fallback_location: root_path)
