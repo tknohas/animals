@@ -10,7 +10,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @animals = Animal.where(user_id: "#{@user.id}")
+    @animals = Animal.where(user_id: "#{@user.id}").page(params[:page]).per(9).order("id DESC")
   end
 
   def edit

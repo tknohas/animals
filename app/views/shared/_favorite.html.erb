@@ -1,11 +1,11 @@
 <% if user_signed_in? %>
   <% if current_user.already_favorited?(animal) %>
     <%= link_to animal_favorite_path(animal), method: :delete, remote: true, data: {"turbolinks" => false} do %>
-      <i class="fa-solid fa-star"></i>
+      <i class="fa-solid fa-star text-warning"></i>
     <% end %>
   <% else %>
     <%= link_to animal_favorite_path(animal), method: :post, remote: true, data: {"turbolinks" => false} do %>
-      <i class="fa-regular fa-star"></i>
+      <i class="fa-regular fa-star text-warning"></i>
     <% end %>
   <% end %>
 <% end %>

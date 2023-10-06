@@ -8,6 +8,11 @@
               <%= image_tag (animal.user.user_image.presence || 'no-image.jpeg'), style: "border-radius: 50%;", :size => '50x50'  %>
               <%= animal.user.username %>
             <% end %>
+            <div class="ms-auto">
+              <% if animal.user == current_user %>
+                <i class="fa-solid fa-pen"></i><%= link_to "編集", edit_animal_path(animal), class:"btn btn-white fw-bold" %>
+              <% end %>
+            </div>
           </div>
           <div class="card-top text-center">
             <%= link_to animal_path(animal) do %>
@@ -22,9 +27,6 @@
           <div class="card-text text-center" id="favorite_buttons_<%= animal.id %>">
             <%= render 'shared/favorite', animal: animal %>
           </div>
-          <% if animal.user == current_user %>
-            <%= link_to "編集", edit_animal_path(animal), class:"btn btn-outline-dark animal-edit-button" %>
-          <% end %>
         </div>
       </div>
     <% end %>

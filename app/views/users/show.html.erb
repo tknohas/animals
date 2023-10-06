@@ -1,6 +1,6 @@
-<h1>プロフィール</h1>
+<h1 class="text-center mt-4 mb-3">マイページ</h1>
 
-<div class="d-flex flex-row bd-highlight mb-3">
+<div class="d-flex flex-row bd-highlight mb-4">
   <div class="p-2 bd-highlight">
     <% if @user.user_image.attached? %>
       <%= image_tag @user.user_image, style: "border-radius: 50%;", :size => '200x200' %>
@@ -14,7 +14,7 @@
   </div>
   <div class="p-2 bd-highlight">
     <% if @user.id == current_user.id %>
-      <p><i class="fa-solid fa-pen"></i><%= link_to "編集", edit_user_path, class:"btn btn-white btn-lg fw-bold edit-user" %></p>
+      <p class="text-primary"><i class="fa-solid fa-pen"></i><%= link_to "編集", edit_user_path, class:"text-decoration-none fw-bold edit-user" %></p>
     <% end %>
   </div>
 </div>
@@ -24,4 +24,6 @@
 <%= render 'animals/animal_each' %>
 <p class="text-center mt-3 users-link"><%= link_to "ユーザーのみなさん", users_path, class:"btn btn-outline-dark" %></p>
 
-<%= link_to 'いいね一覧', user_favorites_path(current_user.id) %>
+<div class="index-paginate">
+  <%= paginate @animals, theme: 'twitter-bootstrap-4' %>
+</div>

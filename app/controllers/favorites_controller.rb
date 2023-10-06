@@ -1,6 +1,6 @@
 class FavoritesController < ApplicationController
   def index
-    @animals = Animal.joins(:favorites).where(favorites: { user_id: params[:user_id] })
+    @animals = Animal.joins(:favorites).where(favorites: { user_id: params[:user_id] }).page(params[:page]).per(9).order("id DESC")
   end
 
   def create

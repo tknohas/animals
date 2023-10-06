@@ -7,16 +7,10 @@
       <% else %>
         ちゃん
       <% end %>
+      <div id="favorite_buttons_<%= @animal.id %>">
+        <%= render 'shared/favorite', animal: @animal %>
+      </div>
     </h2>
-    <% if current_user.already_favorited?(animal) %>
-      <%= link_to animal_favorite_path(animal), method: :delete, remote: true do %>
-        <i class="fa-solid fa-star"></i>
-      <% end %>
-    <% else %>
-      <%= link_to animal_favorite_path(animal), method: :post, remote: true do %>
-        <i class="fa-regular fa-star"></i>
-      <% end %>
-    <% end %>
   </div>
 </div>
 <div class="row row-cols-auto justify-content-center" style="margin: 0px auto;">
@@ -62,4 +56,4 @@
     </div>
   </div>
 </div>
-<p><%= link_to 'ペットのみんなへ', animals_path, class:"btn btn-outline-dark" %>
+<p class="text-center"><%= link_to 'ペットのみんなへ', animals_path, class:"btn btn-outline-dark" %>
