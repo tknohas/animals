@@ -17,4 +17,4 @@ import "../stylesheets/application.scss";
 
 //= require underscore
 //= require gmaps/google
-
+//= require jquery
