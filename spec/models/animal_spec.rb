@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Animal, type: :model do
   let(:animal) { build(:animal) }
-  it "ペットの名前,投稿内容,カテゴリーがあれば有効な状態であること" do
+  it "ペットの名前、投稿内容、カテゴリー、画像があれば有効な状態であること" do
     expect(animal).to be_valid
   end
   it "名前がなければ無効な状態であること" do
@@ -19,6 +19,11 @@ RSpec.describe Animal, type: :model do
     animal.category = nil
     animal.valid?
     expect(animal.errors[:category]).to include("を入力してください")
+  end
+  it "画像がなければ無効な状態であること" do
+    animal.animal_images = nil
+    animal.valid?
+    expect(animal.errors[:animal_images]).to include("を入力してください")
   end
   it "動物名が20文字以内でなければ無効な状態であること" do
     animal.animalname = Faker::Lorem.characters(number: 21)
