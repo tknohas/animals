@@ -1,3 +1,4 @@
+<% provide(:title, "施設の詳細") %>
 <h1><%= @facility.facility_name %></h1>
 <% if @facility.user_id == current_user.id %>
   <p class="text-end">
