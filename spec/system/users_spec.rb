@@ -149,7 +149,7 @@ RSpec.describe "Users", type: :system do
         click_on "animal_images"
         expect(current_path).to eq animal_path(animal.id)
       end
-      it "投稿内の編集ボタンをクリックするとanimal_pathへ遷移すること" do
+      it "投稿内の編集ボタンをクリックするとedit_animal_pathへ遷移すること" do
         within ".card" do
           click_on "編集"
           expect(current_path).to eq edit_animal_path(animal.id)
