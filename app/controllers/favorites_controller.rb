@@ -1,6 +1,6 @@
 class FavoritesController < ApplicationController
   def index
-    @animals = Animal.joins(:favorites).where(favorites: { user_id: params[:user_id] }).page(params[:page]).per(9).order("id DESC")
+    @animals = Animal.joins(:favorites).where(favorites: { user_id: params[:user_id] }).page(params[:page]).per(9).order("id DESC")# rubocop:disable all
   end
 
   def create

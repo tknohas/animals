@@ -16,7 +16,7 @@ class UsersController < ApplicationController
   def edit
     @user = User.find(params[:id])
     if @user != current_user
-      redirect_to users_path, alert:'不正なアクセスです。'
+      redirect_to users_path, alert: '不正なアクセスです。'
     end
   end
 
@@ -30,6 +30,7 @@ class UsersController < ApplicationController
   end
 
   private
+
   def user_params
     params.require(:user).permit(:email, :password, :user_image, :username, :profile)
   end

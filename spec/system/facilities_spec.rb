@@ -35,7 +35,7 @@ RSpec.describe "Facilities", type: :system do
         expect(page).to have_content "削除"
       end
     end
-    describe  "リンクの遷移"  do
+    describe "リンクの遷移" do
       it "施設名をクリックすると施設の詳細画面に遷移すること" do
         click_on facility.facility_name
         expect(current_path).to eq facility_path(facility.id)
@@ -64,7 +64,7 @@ RSpec.describe "Facilities", type: :system do
       end
     end
   end
-  
+
   describe "#new" do
     before do
       visit new_facility_path
@@ -173,15 +173,15 @@ RSpec.describe "Facilities", type: :system do
         click_on "ゲストログイン"
         visit facility_path(facility.id)
       end
-      it "編集画面へのリンクが表示されないこと" do  
+      it "編集画面へのリンクが表示されないこと" do
         expect(page).to_not have_link "編集"
       end
-      it "削除リンクが表示されないこと" do  
+      it "削除リンクが表示されないこと" do
         expect(page).to_not have_link "削除"
       end
     end
   end
-  
+
   describe "#edit" do
     before do
       visit edit_facility_path(facility.id)

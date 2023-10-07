@@ -13,7 +13,7 @@ class FacilitiesController < ApplicationController
     @facility.user_id = current_user.id
     if @facility.save
       redirect_to facilities_path, notice: '施設の登録に成功しました。'
-    else 
+    else
       render "new"
     end
   end
@@ -46,6 +46,7 @@ class FacilitiesController < ApplicationController
   end
 
   private
+
   def facility_params
     params.require(:facility).permit(:address, :latitude, :longitude, :facility_name, :introduction, :link_to_site)
   end

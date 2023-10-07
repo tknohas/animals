@@ -11,9 +11,9 @@ RSpec.describe "Users", type: :system do
     fill_in "パスワード", with: user.password
     click_on "ログインする"
   end
-  
+
   describe "新規登録、ログイン" do
-    before do 
+    before do
       click_on "ログアウト"
     end
     it "新規登録する" do
@@ -41,7 +41,7 @@ RSpec.describe "Users", type: :system do
     click_on "ログアウト"
     expect(page).to have_content "ログアウトしました。"
   end
-  
+
   describe "#index" do
     before do
       visit users_path
@@ -58,10 +58,10 @@ RSpec.describe "Users", type: :system do
         expect(page).to have_selector("img[src$='attachment.jpg']")
       end
     end
-    describe "", js:true do
+    describe "", js: true do
       it "ユーザー詳細画面へ遷移すること" do
         visit users_path
-        page.first(".users-card").click 
+        page.first(".users-card").click
         expect(current_path).to eq user_path(user.id)
       end
     end
@@ -92,7 +92,7 @@ RSpec.describe "Users", type: :system do
       end
     end
   end
-  
+
   describe "#show" do
     before do
       visit user_path(user.id)
@@ -134,7 +134,7 @@ RSpec.describe "Users", type: :system do
         expect(page).to have_link "ユーザーのみなさん"
       end
       describe "表示されないこと" do
-        before do 
+        before do
           click_on "ログアウト"
           click_on "ゲストログイン"
           visit user_path(1)
@@ -143,7 +143,7 @@ RSpec.describe "Users", type: :system do
           expect(page).to_not have_link "編集"
         end
       end
-    end 
+    end
     describe "リンクの遷移" do
       it "投稿をクリックすると投稿詳細画面へ遷移すること" do
         click_on "animal_images"

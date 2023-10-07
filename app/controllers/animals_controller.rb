@@ -1,21 +1,20 @@
 class AnimalsController < ApplicationController
   before_action :authenticate_user!, except: [:index]
   def index
-    #@animals = Animal.all
-    @animals = params[:name].present? ? Tag.find(params[:name]).animals.page(params[:page]).per(9).order("id DESC") : Animal.all.page(params[:page]).per(9).order("id DESC")
+    @animals = params[:name].present? ? Tag.find(params[:name]).animals.page(params[:page]).per(9).order("id DESC") : Animal.all.page(params[:page]).per(9).order("id DESC")# rubocop:disable all
     @tags = Tag.all
   end
 
   def new
     @animal = Animal.new
   end
-  
+
   def create
     @animal = Animal.new(animal_params)
     @animal.user_id = current_user.id
     if @animal.save
       redirect_to animals_path, notice: '投稿に成功しました。'
-    else 
+    else
       render "new"
     end
   end
@@ -41,7 +40,7 @@ class AnimalsController < ApplicationController
       render 'edit'
     end
   end
-  
+
   def destroy
     animal = Animal.find(params[:id])
     animal.destroy
@@ -49,6 +48,7 @@ class AnimalsController < ApplicationController
   end
 
   private
+
   def animal_params
     params.require(:animal).permit(:animalname, :body, :male_or_female, { tag_ids: [] }, :category, animal_images: [])
   end

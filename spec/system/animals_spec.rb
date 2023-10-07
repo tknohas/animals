@@ -13,7 +13,7 @@ RSpec.describe "Animals", type: :system do
   end
 
   describe "#index" do
-    before do 
+    before do
       visit animals_path
     end
     describe "表示の確認" do
@@ -75,7 +75,7 @@ RSpec.describe "Animals", type: :system do
 
   describe "#new" do
     let!(:tag) { create(:tag) }
-    before do 
+    before do
       visit new_animal_path
     end
     describe "表示の確認" do
@@ -214,7 +214,7 @@ RSpec.describe "Animals", type: :system do
         expect(page).to have_field 'animal[male_or_female]', with: animal.male_or_female
       end
       it "カテゴリーの入力フォームが表示されること" do
-        expect(page).to have_field 'animal[category]', with:animal.category
+        expect(page).to have_field 'animal[category]', with: animal.category
       end
       it "保存ボタンが表示されること" do
         expect(page).to have_button '保存'

@@ -7,7 +7,8 @@ FactoryBot.define do
     association :user
 
     after(:build) do |animal|
-      animal.animal_images.attach(io: File.open('spec/files/attachment.jpg'), filename: 'attachment.jpg', content_type: 'image/jpg')
+      animal.animal_images.attach(io: File.open('spec/files/attachment.jpg'), filename: 'attachment.jpg',
+                                  content_type: 'image/jpg')
     end
   end
 end
