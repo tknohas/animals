@@ -1,6 +1,5 @@
 <% provide(:title, "マイページ") %>
 <h1 class="text-center mt-4 mb-3">マイページ</h1>
-
 <div class="d-flex flex-row bd-highlight mb-4">
   <div class="p-2 bd-highlight">
     <% if @user.user_image.attached? %>
@@ -19,12 +18,9 @@
     <% end %>
   </div>
 </div>
-
 <h2><%= @user.username %>さんの投稿</h2>
-
 <%= render 'animals/animal_each' %>
 <p class="text-center mt-3 users-link"><%= link_to "ユーザーのみなさん", users_path, class:"btn btn-outline-dark" %></p>
-
-<div class="index-paginate">
+<div class="index-paginate mt-4">
   <%= paginate @animals, theme: 'twitter-bootstrap-4' %>
 </div>

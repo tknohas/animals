@@ -1,6 +1,5 @@
 <% provide(:title, "おすすめ施設") %>
 <h1 class="text-center mt-4"><i class="fa-solid fa-otter"></i> みなさんのおすすめ施設 <i class="fa-solid fa-otter"></i></h1>
-
 <div class="container mt-5">
   <div class="row">
     <div class="col-10 mx-auto">
@@ -33,5 +32,6 @@
     </div>
   </div>
 </div>
-<%= paginate @facilities, theme: 'twitter-bootstrap-4' %>
-
+<div class="mt-4">
+  <%= paginate @facilities, theme: 'twitter-bootstrap-4', class:"mt-4" %>
+</div>

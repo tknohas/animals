@@ -1,7 +1,6 @@
 <% provide(:title, "いいね") %>
 <h1 class="text-center mt-4">いいね</h1>
-
 <%= render 'animals/animal_each' %>
-<div class="index-paginate">
-  <%= paginate @animals, theme: 'twitter-bootstrap-4' %>
+<div class="index-paginate mt-4">
+  <%= paginate @animals, theme: 'twitter-bootstrap-4', class:"mt-4" %>
 </div>

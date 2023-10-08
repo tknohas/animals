@@ -27,7 +27,7 @@
     <div>
       <% if @animal.animal_images.length < 2 %>
         <% @animal.animal_images.each do |image| %>
-            <%= image_tag image, class:"d-block my-5 w-100"  %>
+          <%= image_tag image, class:"d-block my-5 w-100" %>
         <% end %>
       <% else %>
         <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">

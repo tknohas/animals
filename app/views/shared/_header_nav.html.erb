@@ -48,7 +48,11 @@
                   <li><%= link_to "ユーザーのみなさん", users_path, class:"nav-link" %></li>
                 </ul>
                 <ul class="list-unstyled">
-                  <li><%= link_to 'いいね', user_favorites_path(current_user.id), class:"nav-link" %></li>
+                  <li>
+                    <%= link_to user_favorites_path(current_user.id), class:"nav-link" do %>
+                      <i class="fa-solid fa-star"></i>
+                    <% end %>
+                  </li>
                 </ul>
               </div>
             </li>
