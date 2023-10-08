@@ -1,0 +1,28 @@
+ja:
+  views:
+    pagination:
+      first: <i class="fas fa-angle-double-left"></i>
+      last: <i class="fas fa-angle-double-right"></i>
+      previous: <i class="fas fa-angle-left"></i>
+      next: <i class="fas fa-angle-right"></i>
+      truncate: "..."
+  activerecord:
+    models:
+      animal:
+      user:
+      facility:
+    attributes:
+      animal/male_or_female:           #モデル名を指定
+        male: オス     #Enumの名前定義①
+        female: メス   #Enumの名前定義②
+      animal:
+        animalname: ペットのおなまえ
+        body: 投稿内容
+        animal_images: 画像
+        category: ペットの正式名称
+      user:
+        username: 名前 
+      facility:
+        facility_name: 施設名
+        introduction: 施設紹介文
+        address: 住所

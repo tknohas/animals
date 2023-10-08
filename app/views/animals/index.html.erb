@@ -1,0 +1,6 @@
+<% provide(:title, "ペットのみんな") %>
+<h1 class="text-center mt-4"><i class="fa-solid fa-paw"></i> ペットのみんな <i class="fa-solid fa-paw"></i></h1>
+<%= render 'animal_each' %>
+<div class="index-paginate mt-4">
+  <%= paginate @animals, theme: 'twitter-bootstrap-4' %>
+</div>

@@ -1,0 +1,63 @@
+<% provide(:title, "施設の詳細") %>
+<h1><%= @facility.facility_name %></h1>
+<% if @facility.user_id == current_user.id %>
+  <p class="text-end">
+    <i class="fa-solid fa-pen"></i><%= link_to "編集", edit_facility_path, class:"btn btn-white btn-lg fw-bold" %>
+  </p>
+  <%= link_to @facility, method: :delete, data: {confirm: "削除しますか？"} do %>
+    <p class="text-end text-danger"><i class="fa-solid fa-trash"></i><span class="btn btn-white btn-lg fw-bold text-danger">削除</span></p>
+  <% end %>
+<% end %>
+<table class="table mt-4">
+  <tr>
+    <th>施設紹介</th>
+    <td><%= safe_join(@facility.introduction.split("\n"),tag(:br)) %></td>
+  </tr>
+  <tr>
+    <th>住所</th>
+    <td><%= @facility.address %></td>
+  </tr>
+  <tr>
+    <th>ホームページへのリンク</th>
+    <td><%=link_to @facility.link_to_site, @facility.link_to_site, target: :_blank, class:"link-site" %></td>
+  </tr>
+</table>
+
+<div id="map"></div>
+<div>
+  <script>
+    let map;
+
+    function initMap() {
+      // geocoderを初期化
+      geocoder = new google.maps.Geocoder()
+
+      map = new google.maps.Map(document.getElementById('map'), {
+        // コントローラーで定義した変数から緯度経度を呼び出し、マップの中心に表示
+        center: {
+          lat: gon.facility.latitude,
+          lng: gon.facility.longitude
+        },
+        // マップの倍率はお好みで
+        zoom: 17,
+      });
+
+      marker = new google.maps.Marker({
+        // コントローラーで定義した変数から緯度経度を呼び出し、マーカーを立てる
+        position: {
+          lat: gon.facility.latitude,
+          lng: gon.facility.longitude
+        },
+        map: map
+      });
+    }
+  </script>
+
+  <script async defer
+        src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=<%= ENV['GOOGLE_API_KEY'] %>&callback=initMap">
+  </script>
+  <style type="text/css">
+    #map { height: 500px;
+          width: auto;}
+  </style>
+</div>

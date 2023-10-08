@@ -1,0 +1,26 @@
+<% provide(:title, "マイページ") %>
+<h1 class="text-center mt-4 mb-3">マイページ</h1>
+<div class="d-flex flex-row bd-highlight mb-4">
+  <div class="p-2 bd-highlight">
+    <% if @user.user_image.attached? %>
+      <%= image_tag @user.user_image, style: "border-radius: 50%;", :size => '200x200' %>
+    <% else %>
+      <%= image_tag "no-image.jpg", style: "border-radius: 50%; width: 150px, height: 150px, object-fit:cover;" %>
+    <% end %>
+  </div>
+  <div class="p-2 bd-highlight">
+    <h3><%= @user.username %> さん</h3> 
+    <p><br><%= @user.profile %></p>
+  </div>
+  <div class="p-2 bd-highlight">
+    <% if @user.id == current_user.id %>
+      <p class="text-primary"><i class="fa-solid fa-pen"></i><%= link_to "編集", edit_user_path, class:"text-decoration-none fw-bold edit-user" %></p>
+    <% end %>
+  </div>
+</div>
+<h2><%= @user.username %>さんの投稿</h2>
+<%= render 'animals/animal_each' %>
+<p class="text-center mt-3 users-link"><%= link_to "ユーザーのみなさん", users_path, class:"btn btn-outline-dark" %></p>
+<div class="index-paginate mt-4">
+  <%= paginate @animals, theme: 'twitter-bootstrap-4' %>
+</div>

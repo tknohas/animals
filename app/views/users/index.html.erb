@@ -1,0 +1,21 @@
+<% provide(:title, "ユーザーのみなさん") %>
+<h1 class="text-center mt-4 mb-3"><i class="fa-solid fa-user"></i> ユーザーのみなさん <i class="fa-solid fa-user"></i></h1>
+<div class="container mt-5">
+  <div class="row">
+    <% @users.each do |user| %>
+      <div class="col-md-3">
+        <div class="card mb-3 users-card">
+          <%= link_to user_path(user.id), class:"btn btn-white btn-lg" do %>
+            <div class="card-top text-center">
+              <%= image_tag (user.user_image.presence || 'no-image.jpg'), style: "border-radius: 50%;", :size => '150x150'  %>
+            </div>
+            <div class="card-body text-center">
+              <h4 class="card-title"><%= user.username %></h4>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+<%= paginate @users, theme: 'twitter-bootstrap-4' %>

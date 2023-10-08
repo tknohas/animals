@@ -1,0 +1,53 @@
+<%= form_with model: animal do |f| %>
+  <% if @animal.errors.any? %>
+    <div class="notification bg-warning">
+      <h2><%= pluralize(@animal.errors.count, "error") %>が発生しています。</h2>
+      <ul>
+        <% @animal.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="form-group">
+    <%= f.label :animalname, "ペットのおなまえ", class:"fw-bold" %>
+    <%= f.text_field :animalname, class:"form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :body, "投稿内容", class:"fw-bold" %>
+    <%= f.text_area :body, class:"form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :animal_images, "写真", class:"fw-bold" %>
+    <%= f.file_field :animal_images, multiple: true, class:"form-control" %>
+  </div>
+    
+  <div class="form-group">
+    <%= f.label :性別, class:"fw-bold" %><br />
+    <%= f.select :male_or_female, Animal.enum_options_for_select(:male_or_female), class:"form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :category, "ペットの名称", class:"fw-bold" %>
+    <%= f.text_field :category, class:"form-control", placeholder: "柴犬、マンチカン、ニシキヘビなど" %>
+  </div>
+
+  <div class="check_box">
+    <%= f.label :tag_id, 'カテゴリー', class:"fw-bold" %>
+    <%= f.collection_check_boxes(:tag_ids, Tag.all, :id, :name) do |tag| %>
+      <div class='form-check'>
+        <%= tag.label do %>
+          <%= tag.check_box %>
+          <%= tag.text %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+  <%= f.hidden_field :user_id, value: current_user.id %>
+  <div class="text-center mt-3">
+    <p><%= f.submit "保存", class:"btn btn-outline-primary" %></p>
+    <p><%= link_to "戻る", :back, class:"btn btn-outline-dark" %></p>
+  </div>
+<% end %>
