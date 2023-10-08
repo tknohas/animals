@@ -15,7 +15,7 @@
         <div>
           <%= link_to animal_path(animal) do %>
             <div>
-              <%= image_tag animal.animal_image.presence || 'no-image.jpeg', alt: "動物画像" %>
+              <%= image_tag animal.animal_image.presence, alt: "動物画像" %>
             </div>
 
             <div>

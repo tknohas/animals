@@ -7,7 +7,7 @@
         <div class="card mb-3 users-card">
           <%= link_to user_path(user.id), class:"btn btn-white btn-lg" do %>
             <div class="card-top text-center">
-              <%= image_tag (user.user_image.presence || 'no-image.jpeg'), style: "border-radius: 50%;", :size => '150x150'  %>
+              <%= image_tag (user.user_image.presence || 'no-image.jpg'), style: "border-radius: 50%;", :size => '150x150'  %>
             </div>
             <div class="card-body text-center">
               <h4 class="card-title"><%= user.username %></h4>

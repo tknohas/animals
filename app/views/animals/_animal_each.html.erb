@@ -5,7 +5,7 @@
         <div class="card mt-3">
           <div class="d-flex flex-row user">
             <%= link_to(user_path(animal.user.id), class:"btn btn-white btn-lg user-btn") do %>
-              <%= image_tag (animal.user.user_image.presence || 'no-image.jpeg'), style: "border-radius: 50%;", :size => '50x50'  %>
+              <%= image_tag (animal.user.user_image.presence || 'no-image.jpg'), style: "border-radius: 50%;", :size => '50x50'  %>
               <%= animal.user.username %>
             <% end %>
             <div class="ms-auto">
