@@ -53,7 +53,7 @@
           </div>
         </div>
       <% end %>
-      <p style="font-size: 20px;"><%= @animal.body %></p>
+      <p style="font-size: 20px;"><%=safe_join @animal.body.split("\n"),tag(:br) %></p>
     </div>
   </div>
 </div>
