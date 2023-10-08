@@ -23,23 +23,23 @@ RSpec.describe "Homes", type: :system do
           expect(current_path).to eq root_path
         end
         it "new_animal_pathへの遷移" do
-          click_on "ペットの投稿"
+          click_on "ペットの投稿", match: :first
           expect(current_path).to eq new_animal_path
         end
         it "new_facility_pathへの遷移" do
-          click_on "施設の投稿"
+          click_on "施設の投稿", match: :first
           expect(current_path).to eq new_facility_path
         end
         it "animals_pathへの遷移" do
-          click_on "ペットのみんな"
+          click_on "ペットのみんな", match: :first
           expect(current_path).to eq animals_path
         end
         it "facilities_pathへの遷移" do
-          click_on "おすすめ施設"
+          click_on "おすすめ施設", match: :first
           expect(current_path).to eq facilities_path
         end
         it "users_pathへの遷移" do
-          click_on "ユーザーのみなさん"
+          click_on "ユーザーのみなさん", match: :first
           expect(current_path).to eq users_path
         end
         it "user_pathへの遷移" do

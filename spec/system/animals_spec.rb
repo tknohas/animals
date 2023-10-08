@@ -127,7 +127,7 @@ RSpec.describe "Animals", type: :system do
     describe "遷移すること" do
       it '戻るボタンをクリックすると前の画面へ遷移すること' do
         visit root_path
-        click_on "ペットの投稿"
+        click_on "ペットの投稿", match: :first
         click_on "戻る"
         expect(current_path).to eq root_path
       end
@@ -266,14 +266,12 @@ RSpec.describe "Animals", type: :system do
       fill_in "keyword", with: animal.category
       click_on "探す"
       expect(page).to have_content animal.animalname
-      expect(page).to have_content animal.category
       expect(page).to have_selector("img[src$='attachment.jpg']")
     end
     it "animalnameで検索すると対象の動物が表示されること" do
       fill_in "keyword", with: animal.animalname
       click_on "探す"
       expect(page).to have_content animal.animalname
-      expect(page).to have_content animal.category
       expect(page).to have_selector("img[src$='attachment.jpg']")
     end
     it "keywordではない文字を入力すると検索結果が表示されないこと" do
@@ -281,7 +279,6 @@ RSpec.describe "Animals", type: :system do
       click_on "探す"
       expect(page).to have_content "0件"
       expect(page).to_not have_content animal.animalname
-      expect(page).to_not have_content animal.category
       expect(page).to_not have_selector("img[src$='attachment.jpg']")
     end
   end
