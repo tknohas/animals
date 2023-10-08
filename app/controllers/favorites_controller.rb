@@ -1,4 +1,5 @@
 class FavoritesController < ApplicationController
+  before_action :authenticate_user!
   def index
     @animals = Animal.joins(:favorites).where(favorites: { user_id: params[:user_id] }).page(params[:page]).per(9).order("id DESC")# rubocop:disable all
   end
