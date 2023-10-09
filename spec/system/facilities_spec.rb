@@ -106,7 +106,7 @@ RSpec.describe "Facilities", type: :system do
     end
     it "戻るボタンをクリックすると前の画面に遷移すること" do
       visit root_path
-      click_on "施設の投稿"
+      click_on "施設の投稿", match: :first
       click_on "戻る"
       expect(current_path).to eq root_path
     end

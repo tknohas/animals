@@ -23,4 +23,11 @@ class Animal < ApplicationRecord
   end
   validates :body, length: { maximum: 140 }
   validates :animalname, length: { maximum: 20 }
+  validate :animal_images_length
+
+  def animal_images_length
+    if animal_images.length > 4
+      errors.add(:animal_images, "は4枚以内で選択してください")
+    end
+  end
 end
