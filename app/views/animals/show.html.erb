@@ -32,18 +32,37 @@
       <% else %>
         <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
           <div class="carousel-inner">
-            <div class="carousel-item active">
-              <%= image_tag @animal.animal_images.first, class:"d-block my-5 w-100" %>
-            </div>
-            <div class="carousel-item">
-              <%= image_tag @animal.animal_images.second, class:"d-block my-5 w-100" %>
-            </div>
-            <div class="carousel-item">
-              <%= image_tag @animal.animal_images.third, class:"d-block my-5 w-100" %>
-            </div>
-            <div class="carousel-item">
-              <%= image_tag @animal.animal_images.fourth, class:"d-block my-5 w-100" %>
-            </div>
+            <% if @animal.animal_images.length == 2 %>
+              <div class="carousel-item active">
+                <%= image_tag @animal.animal_images.first, class:"d-block my-5 w-100" %>
+              </div>
+              <div class="carousel-item">
+                <%= image_tag @animal.animal_images.second, class:"d-block my-5 w-100" %>
+              </div>
+            <% elsif @animal.animal_images.length == 3 %>
+              <div class="carousel-item active">
+                <%= image_tag @animal.animal_images.first, class:"d-block my-5 w-100" %>
+              </div>
+              <div class="carousel-item">
+                <%= image_tag @animal.animal_images.second, class:"d-block my-5 w-100" %>
+              </div>
+              <div class="carousel-item">
+                <%= image_tag @animal.animal_images.third, class:"d-block my-5 w-100" %>
+              </div>
+            <% elsif @animal.animal_images.length == 4 %>
+              <div class="carousel-item active">
+                <%= image_tag @animal.animal_images.first, class:"d-block my-5 w-100" %>
+              </div>
+              <div class="carousel-item">
+                <%= image_tag @animal.animal_images.second, class:"d-block my-5 w-100" %>
+              </div>
+              <div class="carousel-item">
+                <%= image_tag @animal.animal_images.third, class:"d-block my-5 w-100" %>
+              </div>
+              <div class="carousel-item">
+                <%= image_tag @animal.animal_images.fourth, class:"d-block my-5 w-100" %>
+              </div>
+            <% end %>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
               <span class="carousel-control-prev-icon" aria-hidden="true"></span>
               <span class="visually-hidden">Previous</span>
