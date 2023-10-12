@@ -58,6 +58,7 @@ group :development do
   gem 'ancestry'
   gem 'pry-rails'
   gem 'rubocop-airbnb'
+  gem "rails-erd"
 end
 
 group :test do

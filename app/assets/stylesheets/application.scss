@@ -7,6 +7,13 @@
   background-size: cover;
 }
 
+@media screen and (max-width: 575px) {
+  .home-main {
+    background-image: none;
+    height: 280px;
+  }
+}
+
 h1 {
   font-family: YuGothic;
   font-weight: bold;
