@@ -31,6 +31,59 @@
       </div>
     </div>
   </div>
+  <div class="container mt-4">
+    <h2 class="pt-5 mb-4">みなさんのおすすめ施設</h2>
+    <div id="map"></div>
+    <div>
+      <script>
+        function initMap() {
+          let latlng = new google.maps.LatLng(38.60, 139.5);
+          let styles = [
+              {
+                stylers: [
+                { "saturation": 0 },
+                { "lightness": 0 }
+                ]
+              }
+          ];
+
+          let map = new google.maps.Map(document.getElementById('map'), {
+              zoom: 5.5,
+              styles: styles,
+              center: latlng
+          });
+          let transitLayer = new google.maps.TransitLayer();
+          transitLayer.setMap(map);
+
+          <% @facilities.each do |facility| %>
+            ( function() { 
+              let markerLatLng = { lat: <%= facility.latitude %>, lng: <%= facility.longitude %> };
+              let marker = new google.maps.Marker({ 
+                position: markerLatLng, 
+                map: map 
+              });
+              let infowindow = new google.maps.InfoWindow({
+                position: markerLatLng,
+                content: "<a href='<%= facility_path(facility.id) %>' target='_blank'><%= facility.facility_name %></a>"
+              }); //ここで詳細ページへのリンクを表示させる
+              marker.addListener('click', function() {
+                infowindow.open(map, marker);
+              });
+            })();
+          <% end %>
+          //複数マーカー ここまで  
+        }
+      </script>
+    
+      <script async defer
+            src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=<%= ENV['GOOGLE_API_KEY'] %>&callback=initMap">
+      </script>
+      <style type="text/css">
+        #map { height: 600px;
+              width: auto;}
+      </style>
+    </div>
+  </div>
   <div class="container">
     <h2 class="pt-5">新着投稿</h2>
     <%= render 'animals/animal_each' %>
